@@ -1,0 +1,42 @@
+---
+/** Cinta en movimiento con lo que hacemos (motion graphic). Se pausa al pasar el cursor,
+ *  o con prefers-reduced-motion. */
+import Simbolo from './Simbolo.astro';
+const items = ['Inventario', 'Facturación', 'Ventas y caja', 'Automatización', 'Reportes', 'Sistemas web', 'Apps móviles', 'Sitios y catálogos', 'Identidad visual', 'Consultoría'];
+---
+<div class="cinta" role="region" aria-label="Lo que hacemos">
+  <ul role="list" class="sr-only">{items.map((t) => <li>{t}</li>)}</ul>
+  <div class="cinta__pista" aria-hidden="true">
+    {[0, 1].map(() => (
+      <div class="cinta__grupo">
+        {items.map((t) => (
+          <span class="cinta__item"><Simbolo variante="oscuro" size={18} />{t}</span>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .cinta {
+    position: relative; overflow: hidden;
+    background: var(--c-verde); color: var(--c-blanco);
+    padding: 18px 0;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .cinta__pista { display: flex; width: max-content; }
+  .cinta__grupo { display: flex; gap: 44px; padding-right: 44px; }
+  .cinta__item {
+    display: inline-flex; align-items: center; gap: 14px; white-space: nowrap;
+    font-family: var(--f-display); font-size: clamp(1.125rem, 1rem + 0.6vw, 1.5rem); letter-spacing: -0.01em;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .cinta__pista { animation: cinta 38s linear infinite; }
+    .cinta:hover .cinta__pista { animation-play-state: paused; }
+  }
+  @keyframes cinta { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .cinta__pista { flex-wrap: wrap; width: auto; }
+    .cinta__grupo + .cinta__grupo { display: none; }
+  }
+</style>

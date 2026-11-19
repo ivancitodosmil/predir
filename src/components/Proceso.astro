@@ -1,0 +1,179 @@
+---
+/**
+ * Proceso en cinco tarjetas oscuras con ilustración técnica (SVG en línea), número en contorno
+ * y un tono que avanza del verde claro al coral, unidas por conectores.
+ */
+import { proceso } from '../data/contenido';
+const tonos = [
+  'var(--c-menta)',
+  'color-mix(in oklab, var(--c-menta) 85%, var(--c-blanco))',
+  'color-mix(in oklab, var(--c-menta) 70%, var(--c-coral))',
+  'color-mix(in oklab, var(--c-coral) 75%, #e8b36b)',
+  'var(--c-coral)',
+];
+---
+<section class="section section--osc" id="proceso" aria-labelledby="proc-titulo">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="label">Proceso</p>
+      <h2 id="proc-titulo">Así trabajamos: cinco pasos, cero sorpresas</h2>
+      <p class="sec-intro">Ves la solución antes de que la construyamos y seguimos contigo después de entregarla.</p>
+    </header>
+
+    <ol role="list" class="pasos">
+      {proceso.map((p, i) => (
+        <li class="paso" style={`--tono:${tonos[i]}`}>
+          <div class="paso__panel" aria-hidden="true">
+            <span class="paso__fase">{p.fase}</span>
+            <svg class="paso__svg" viewBox="0 0 240 150" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              {p.visual === 'descubrir' && (
+                <g>
+                  <path d="M20 10 V100 H220" opacity=".45" />
+                  <path class="traza" d="M30 92 L210 22" />
+                  {[[40,84],[52,78],[60,88],[70,70],[82,74],[90,62],[104,66],[112,52],[126,58],[136,44],[150,48],[160,36],[176,40],[188,28],[200,32]].map(([x, y], k) => <circle class="m-punto" style={`--k:${k}`} cx={x} cy={y} r="2.6" fill="currentColor" stroke="none" />)}
+                  <g class="m-lupa"><circle cx="150" cy="48" r="9" opacity=".7" /><path d="M158 42 L176 16 H210" opacity=".6" /></g>
+                  <rect x="22" y="114" width="90" height="30" rx="3" opacity=".5" /><path d="M22 114 L112 144 M112 114 L22 144" opacity=".35" />
+                  <rect x="128" y="114" width="90" height="30" rx="3" opacity=".5" /><path d="M128 114 L218 144 M218 114 L128 144" opacity=".35" />
+                </g>
+              )}
+              {p.visual === 'disenar' && (
+                <g>
+                  <path d="M30 70 L100 46 L170 70 L100 94 Z" fill="currentColor" fill-opacity=".08" opacity=".5" />
+                  <g class="m-capa"><path d="M30 56 L100 32 L170 56 L100 80 Z" fill="currentColor" fill-opacity=".18" />
+                  <path class="traza" d="M64 54 C84 36 112 66 134 46" />
+                  <circle cx="64" cy="54" r="3" fill="currentColor" stroke="none" /><circle cx="134" cy="46" r="3" fill="currentColor" stroke="none" /></g>
+                  <path d="M168 22 A54 54 0 0 1 216 78" stroke-dasharray="3 5" opacity=".7" />
+                  <path class="m-cursor" d="M150 92 L176 102 L164 106 L160 120 Z" fill="currentColor" fill-opacity=".25" />
+                  {[0,1,2,3,4].map((k) => <rect class="m-muestra" style={`--k:${k}`} x={28 + k * 16} y="112" width="12" height="12" rx="2" fill="currentColor" fill-opacity={0.2 + k * 0.18} stroke="none" />)}
+                  {[0,1,2,3,4].map((k) => <rect x={28 + k * 16} y="128" width="12" height="12" rx="2" fill={k > 2 ? 'var(--c-coral)' : 'currentColor'} fill-opacity={k > 2 ? 0.85 : 0.4} stroke="none" />)}
+                </g>
+              )}
+              {p.visual === 'desarrollar' && (
+                <g>
+                  <rect x="20" y="10" width="110" height="64" rx="5" fill="currentColor" fill-opacity=".06" /><path d="M20 22 H130" /><circle cx="28" cy="16" r="1.6" fill="currentColor" /><circle cx="34" cy="16" r="1.6" fill="currentColor" />
+                  <path class="m-tipeo" d="M30 34 H70 M38 44 H96 M38 54 H82 M30 64 H60" />
+                  <g class="m-ventana"><rect x="70" y="52" width="110" height="60" rx="5" fill="var(--c-tinta-2)" /><path d="M70 64 H180" />
+                  <path class="m-tipeo m-tipeo--2" d="M80 76 H120 M88 86 H150 M88 96 H130" opacity=".8" /></g>
+                  <g class="m-ventana m-ventana--2"><rect x="122" y="88" width="98" height="54" rx="5" fill="var(--c-tinta-2)" /><path d="M122 100 H220" />
+                  <path class="m-tipeo m-tipeo--3" d="M132 112 H168 M140 122 H198 M132 132 H156" opacity=".8" /></g>
+                  <path d="M150 30 H196 V48" stroke-dasharray="3 4" opacity=".6" /><path d="M192 44 L196 50 L200 44" opacity=".6" />
+                </g>
+              )}
+              {p.visual === 'desplegar' && (
+                <g>
+                  <path d="M16 10 V70 H110" opacity=".45" />
+                  <path class="traza" d="M18 66 L36 52 L52 58 L70 34 L86 44 L104 18" />
+                  <path d="M18 66 L36 52 L52 58 L70 34 L86 44 L104 18 V70 H18 Z" fill="currentColor" fill-opacity=".14" stroke="none" />
+                  <path d="M150 52 a18 18 0 0 1 4 -35 a24 24 0 0 1 44 6 a15 15 0 0 1 4 29 Z" fill="currentColor" fill-opacity=".08" />
+                  <g class="m-sube"><path d="M176 92 V40 M168 48 L176 40 L184 48" /></g>
+                  <path d="M16 110 H226" stroke-dasharray="3 5" opacity=".45" />
+                  <path class="traza" d="M24 132 H70 M86 132 H132 M78 132 V112 M148 132 H200" />
+                  {[24, 78, 140, 206].map((x) => <circle cx={x} cy="132" r="5" fill="var(--c-tinta-2)" />)}
+                  <circle class="m-dato" cx="24" cy="132" r="3.5" fill="currentColor" stroke="none" />
+                  <path d="M196 128 L204 132 L196 136" />
+                </g>
+              )}
+              {p.visual === 'soporte' && (
+                <g>
+                  <circle cx="120" cy="72" r="62" opacity=".35" /><circle cx="120" cy="72" r="42" opacity=".35" /><circle cx="120" cy="72" r="22" opacity=".35" />
+                  <path d="M120 10 V134 M58 72 H182 M76 28 L164 116 M164 28 L76 116" opacity=".2" />
+                  <g class="m-barrido"><path d="M120 72 L120 10 A62 62 0 0 1 164 28 Z" fill="currentColor" fill-opacity=".22" stroke="none" /></g>
+                  <path class="traza m-radar" d="M120 26 L160 42 L168 92 L122 112 L84 86 L90 42 Z" fill="currentColor" fill-opacity=".28" />
+                  {[[120,26],[160,42],[168,92],[122,112],[84,86],[90,42]].map(([x, y]) => <circle cx={x} cy={y} r="3.2" fill="currentColor" stroke="none" />)}
+                </g>
+              )}
+            </svg>
+            <span class="paso__n">{p.n}</span>
+            <span class="paso__deco"><i></i><i></i><i></i></span>
+          </div>
+          <h3><span class="paso__f">{p.fase} /</span> {p.titulo}</h3>
+          <p>{p.texto}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .pasos { display: grid; gap: 20px; grid-template-columns: 1fr; }
+  .paso {
+    position: relative; display: grid; gap: 10px; align-content: start;
+    padding: 12px 12px 22px; border-radius: 20px;
+    background: color-mix(in oklab, var(--c-tinta) 80%, #000);
+    border: 1px solid color-mix(in oklab, var(--tono) 30%, transparent);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.02);
+    transition: transform var(--dur-2) var(--ease-out), border-color var(--dur-2), box-shadow var(--dur-2);
+  }
+  .paso:hover { transform: translateY(-3px); border-color: color-mix(in oklab, var(--tono) 65%, transparent); box-shadow: 0 24px 50px -30px color-mix(in oklab, var(--tono) 60%, transparent); }
+
+  .paso__panel {
+    position: relative; overflow: hidden; color: var(--tono);
+    aspect-ratio: 1 / 1.08; margin-bottom: 10px;
+    padding: 14px; border-radius: 12px;
+    background:
+      radial-gradient(120% 80% at 50% 0%, color-mix(in oklab, var(--tono) 14%, transparent), transparent 70%),
+      var(--c-tinta-2);
+    border: 1px solid color-mix(in oklab, var(--tono) 28%, transparent);
+  }
+  .paso__fase { position: absolute; left: 14px; top: 12px; font-size: 0.75rem; color: color-mix(in oklab, var(--c-blanco) 80%, var(--tono)); }
+  .paso__svg { position: absolute; left: 8%; top: 15%; width: 84%; height: 52%; }
+  .paso__n {
+    position: absolute; left: 12px; bottom: 2px;
+    font-family: var(--f-display); font-size: clamp(3rem, 2rem + 2.6vw, 4.25rem); line-height: 1; letter-spacing: -0.04em;
+    color: transparent; -webkit-text-stroke: 1.5px var(--tono);
+  }
+  .paso__deco { position: absolute; right: 14px; bottom: 18px; display: grid; gap: 5px; justify-items: end; }
+  .paso__deco i { display: block; height: 2px; border-radius: 1px; background: color-mix(in oklab, var(--tono) 55%, transparent); }
+  .paso__deco i:nth-child(1) { width: 26px; } .paso__deco i:nth-child(2) { width: 18px; } .paso__deco i:nth-child(3) { width: 22px; }
+
+  .paso h3 { font-size: 1.125rem; line-height: 1.25; padding-inline: 6px; }
+  .paso__f { display: block; font-weight: 600; }
+  .paso h3 { font-weight: 400; }
+  .paso > p { padding-inline: 6px; font-size: 0.875rem; line-height: 1.55; color: var(--c-texto-osc-suave); }
+
+  /* Motion graphics continuos en cada ilustración */
+  .paso__svg * { transform-box: fill-box; transform-origin: center; }
+  @media (prefers-reduced-motion: no-preference) {
+    .traza { stroke-dasharray: 400; animation: trazar 4s var(--ease-in-out) infinite; }
+    .m-punto { animation: m-punto 2.6s ease-in-out infinite; animation-delay: calc(var(--k) * 0.12s); }
+    .m-lupa { animation: m-lupa 5s var(--ease-in-out) infinite alternate; }
+    .m-capa { animation: m-capa 3s var(--ease-in-out) infinite alternate; }
+    .m-cursor { animation: m-cursor 4s var(--ease-in-out) infinite; }
+    .m-muestra { animation: m-muestra 2.4s ease-in-out infinite; animation-delay: calc(var(--k) * 0.2s); }
+    .m-tipeo { stroke-dasharray: 120; animation: m-tipeo 3.2s steps(12) infinite; }
+    .m-tipeo--2 { animation-delay: 0.6s; } .m-tipeo--3 { animation-delay: 1.2s; }
+    .m-ventana { animation: m-ventana 4s var(--ease-in-out) infinite alternate; }
+    .m-ventana--2 { animation-delay: -2s; }
+    .m-sube { animation: m-sube 1.8s var(--ease-in-out) infinite; }
+    .m-dato { animation: m-dato 3s linear infinite; }
+    .m-barrido { transform-origin: 120px 72px; transform-box: view-box; animation: m-barrido 4s linear infinite; }
+    .m-radar { animation: trazar 4s var(--ease-in-out) infinite, m-radar 3s ease-in-out infinite; }
+  }
+  @keyframes trazar { 0% { stroke-dashoffset: 400; } 50%, 100% { stroke-dashoffset: 0; } }
+  @keyframes m-punto { 0%, 100% { opacity: 0.45; transform: scale(1); } 50% { opacity: 1; transform: scale(1.5); } }
+  @keyframes m-lupa { from { transform: translate(-70px, 26px); } to { transform: translate(30px, -12px); } }
+  @keyframes m-capa { to { transform: translateY(-7px); } }
+  @keyframes m-cursor { 0%, 100% { transform: translate(0, 0); } 30% { transform: translate(-40px, -30px); } 60% { transform: translate(-10px, -48px); } }
+  @keyframes m-muestra { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  @keyframes m-tipeo { 0% { stroke-dashoffset: 120; } 70%, 100% { stroke-dashoffset: 0; } }
+  @keyframes m-ventana { to { transform: translate(-6px, -4px); } }
+  @keyframes m-sube { 0% { transform: translateY(14px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(-10px); opacity: 0; } }
+  @keyframes m-dato { 0% { transform: translateX(0); } 100% { transform: translateX(182px); } }
+  @keyframes m-barrido { to { transform: rotate(360deg); } }
+  @keyframes m-radar { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+
+  /* Conectores entre tarjetas (escritorio) */
+  @media (min-width: 1100px) {
+    .pasos { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px; }
+    .paso:not(:last-child)::after {
+      content: ''; position: absolute; top: 34%; right: -25px; width: 26px; height: 10px; z-index: 1;
+      background:
+        radial-gradient(circle, var(--tono) 0 2.5px, transparent 3px) 0 50% / 10px 10px no-repeat,
+        radial-gradient(circle, var(--tono) 0 2.5px, transparent 3px) 100% 50% / 10px 10px no-repeat,
+        linear-gradient(var(--tono), var(--tono)) 50% 50% / 100% 1.5px no-repeat;
+      opacity: 0.7;
+    }
+  }
+  @media (min-width: 640px) and (max-width: 1099px) { .pasos { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 639px) { .paso__panel { aspect-ratio: 4 / 3; } .paso__svg { height: 50%; } }
+</style>

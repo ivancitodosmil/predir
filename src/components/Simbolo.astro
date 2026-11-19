@@ -1,0 +1,47 @@
+---
+/**
+ * Símbolo Predir en línea (SVG). Geometría copiada sin cambios de /Predir-Logo/svg/*.svg
+ * (viewBox 120×120). Solo cambian los colores según la variante oficial.
+ *   color   → verde + coral (fondos claros)
+ *   oscuro  → menta + coral (fondos oscuros)
+ *   blanco  → blanco + menta (fondo verde)
+ *   verde / blanco-1 → una sola tinta
+ */
+interface Props {
+  variante?: 'color' | 'oscuro' | 'blanco' | 'verde' | 'blanco-1';
+  size?: number | string;
+  class?: string;
+  titulo?: string;
+}
+const { variante = 'color', size = 48, class: cls, titulo } = Astro.props;
+const pares = {
+  color: ['#2F6D5F', '#E8836B'],
+  oscuro: ['#9FD3C5', '#E8836B'],
+  blanco: ['#FFFFFF', '#9FD3C5'],
+  verde: ['#2F6D5F', '#2F6D5F'],
+  'blanco-1': ['#FFFFFF', '#FFFFFF'],
+} as const;
+const [a, b] = pares[variante];
+---
+<svg
+  class={cls}
+  width={size}
+  height={size}
+  viewBox="0 0 120 120"
+  xmlns="http://www.w3.org/2000/svg"
+  role={titulo ? 'img' : undefined}
+  aria-label={titulo}
+  aria-hidden={titulo ? undefined : 'true'}
+  focusable="false"
+>
+  <g class="s-p">
+    <rect x="26" y="60" width="16" height="56" rx="8" fill={a}></rect>
+    <rect x="26" y="60" width="16" height="20" fill={a}></rect>
+    <path d="M60 34 A26 26 0 0 0 60 86" fill="none" stroke={a} stroke-width="16"></path>
+  </g>
+  <g class="s-d">
+    <rect x="78" y="4" width="16" height="56" rx="8" fill={b}></rect>
+    <rect x="78" y="40" width="16" height="20" fill={b}></rect>
+    <path d="M60 86 A26 26 0 0 0 60 34" fill="none" stroke={b} stroke-width="16"></path>
+  </g>
+</svg>

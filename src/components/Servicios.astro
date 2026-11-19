@@ -1,0 +1,126 @@
+---
+/** Servicios en versión compacta: cuatro frentes en una fila + la consultoría como primer paso. */
+import Icon from './Icon.astro';
+import { servicios, consultoria } from '../data/contenido';
+---
+<section class="section section--alt" id="servicios" aria-labelledby="svc-titulo">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="label">Servicios</p>
+      <h2 id="svc-titulo">Lo que hacemos por tu negocio</h2>
+      <p class="sec-intro">Cuatro servicios que se combinan entre sí.</p>
+    </header>
+
+    <ul role="list" class="svc-grid">
+      {servicios.map((s, i) => (
+        <li class={`svc svc--${s.visual}`} style={`--i:${i}`}>
+          <span class="svc__ico" aria-hidden="true">
+            {s.visual === 'gestion' && (
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <g class="a-caja"><path d="M21 8 12 3 3 8v8l9 5 9-5Z" /><path d="m3 8 9 5 9-5" /><path d="M12 13v8" /></g>
+                <rect class="a-item" x="9.5" y="-6" width="5" height="5" rx="1" fill="currentColor" stroke="none" />
+              </svg>
+            )}
+            {s.visual === 'automatizacion' && (
+              <svg class="a-giro" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 2l4 4-4 4" /><path d="M3 11v-1a4 4 0 0 1 4-4h14" /><path d="m7 22-4-4 4-4" /><path d="M21 13v1a4 4 0 0 1-4 4H3" />
+              </svg>
+            )}
+            {s.visual === 'software' && (
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path class="a-izq" d="m8 7-5 5 5 5" /><path class="a-der" d="m16 7 5 5-5 5" /><path class="a-cursor" d="M12 8v8" />
+              </svg>
+            )}
+            {s.visual === 'identidad' && (
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path class="a-trazo" d="M3 20 C7 14 11 22 15 15" pathLength="1" />
+                <g class="a-pluma"><path d="M14 13 19 8l3 3-5 5Z" /><path d="m18 9-1.5-5.5L9 2l1.5 7.5" /></g>
+              </svg>
+            )}
+          </span>
+          <p class="svc__meta">{s.linea}</p>
+          <h3>{s.titulo}</h3>
+          <p class="svc__txt">{s.texto}</p>
+        </li>
+      ))}
+    </ul>
+
+    <div class="consult">
+      <p><b>{consultoria.titulo}</b> {consultoria.texto}</p>
+      <button type="button" class="btn btn--primario" data-abrir-agenda>Agendar diagnóstico <Icon name="arrow" /></button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .svc-grid { display: grid; gap: var(--col-gap); grid-template-columns: 1fr; }
+  .svc {
+    display: grid; gap: 10px; align-content: start;
+    padding: 28px 24px; border-radius: var(--r-l);
+    background: var(--c-papel); border: 1px solid var(--c-linea);
+    transition: transform var(--dur-2) var(--ease-out), border-color var(--dur-2), box-shadow var(--dur-2);
+  }
+  .svc:hover { transform: translateY(-2px); border-color: color-mix(in oklab, var(--c-verde) 40%, transparent); box-shadow: 0 20px 40px -30px color-mix(in oklab, var(--c-tinta) 50%, transparent); }
+  .svc__ico {
+    width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; margin-bottom: 8px;
+    background: var(--c-verde); color: var(--c-blanco);
+    transition: background-color var(--dur-2), transform var(--dur-2) var(--ease-out);
+  }
+  .svc:hover .svc__ico { background: var(--c-coral); color: var(--c-tinta); }
+  .svc { position: relative; overflow: hidden; isolation: isolate; }
+  /* Franja de acento que se llena en bucle en la parte superior de cada tarjeta */
+  .svc::before {
+    content: ''; position: absolute; left: 0; top: 0; height: 4px; width: 100%; z-index: 1;
+    background: linear-gradient(90deg, var(--c-verde), var(--c-menta) 60%, var(--c-coral));
+    transform-origin: left; transform: scaleX(0.25);
+  }
+  /* Brillo que cruza la tarjeta */
+  .svc::after {
+    content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: linear-gradient(110deg, transparent 35%, color-mix(in oklab, var(--c-menta) 35%, transparent) 50%, transparent 65%);
+    background-size: 260% 100%; background-position: 130% 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .svc { animation: svc-flota 5s var(--ease-in-out) infinite alternate; animation-delay: calc(var(--i) * -1.2s); }
+    .svc:hover { animation-play-state: paused; }
+    .svc::before { animation: svc-barra 4.8s var(--ease-in-out) infinite; animation-delay: calc(var(--i) * 0.6s); }
+    .svc::after { animation: svc-brillo 6s ease-in-out infinite; animation-delay: calc(var(--i) * 1.5s); }
+    .a-item { animation: a-cae 2.6s var(--ease-out) infinite; }
+    .a-caja { transform-origin: 12px 14px; animation: a-rebote 2.6s var(--ease-out) infinite; }
+    .a-giro { animation: a-gira 3.2s linear infinite; }
+    .a-cursor { animation: a-parpadeo 1s steps(1) infinite; }
+    .a-izq { animation: a-izq 2.4s var(--ease-in-out) infinite; }
+    .a-der { animation: a-der 2.4s var(--ease-in-out) infinite; }
+    .a-trazo { stroke-dasharray: 1; animation: a-traza 2.8s var(--ease-in-out) infinite; }
+    .a-pluma { animation: a-pluma 2.8s var(--ease-in-out) infinite; }
+  }
+  @keyframes svc-flota { to { transform: translateY(-6px); } }
+  @keyframes svc-barra { 0% { transform: scaleX(0.25); } 50% { transform: scaleX(1); } 100% { transform: scaleX(0.25); } }
+  @keyframes svc-brillo { 0%, 60% { background-position: 130% 0; } 100% { background-position: -30% 0; } }
+  @keyframes a-cae { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: 1; } 45%, 70% { transform: translateY(14px); opacity: 1; } 85%, 100% { transform: translateY(14px); opacity: 0; } }
+  @keyframes a-rebote { 0%, 40% { transform: scale(1); } 50% { transform: scale(1.12, 0.9); } 60%, 100% { transform: scale(1); } }
+  @keyframes a-gira { to { transform: rotate(360deg); } }
+  @keyframes a-parpadeo { 50% { opacity: 0; } }
+  @keyframes a-izq { 50% { transform: translateX(-2px); } }
+  @keyframes a-der { 50% { transform: translateX(2px); } }
+  @keyframes a-traza { 0% { stroke-dashoffset: 1; } 60%, 100% { stroke-dashoffset: 0; } }
+  @keyframes a-pluma { 0% { transform: translate(-8px, 4px); } 60%, 100% { transform: translate(0, 0); } }
+  .svc__meta { font-family: var(--f-mono); font-size: var(--t-label); color: var(--c-verde); }
+  .svc h3 { font-size: 1.25rem; }
+  .svc__txt { color: var(--c-texto-suave); font-size: 0.9375rem; line-height: 1.55; }
+
+  .consult {
+    margin-top: var(--col-gap);
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px;
+    padding: 20px 20px 20px 28px; border-radius: var(--r-l);
+    background: var(--c-verde); color: var(--c-blanco);
+  }
+  .consult p { max-width: 70ch; }
+  .consult b { font-weight: 500; }
+  .consult .btn--primario { --btn-bg: var(--c-menta); --btn-fg: var(--c-tinta); }
+  .consult .btn--primario:hover { --btn-bg: var(--c-blanco); }
+
+  @media (min-width: 700px) { .svc-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1100px) { .svc-grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 639px) { .consult .btn { width: 100%; } .consult { padding: 22px; } }
+</style>

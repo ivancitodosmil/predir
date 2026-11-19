@@ -1,0 +1,31 @@
+PREDIR — ARCHIVOS DEL LOGO
+
+svg/ .................. logo en vector, se escala sin perder calidad (úsalo siempre que se pueda)
+  simbolo-color ............... verde + coral, para fondos claros
+  simbolo-blanco .............. para fondo verde
+  simbolo-para-fondo-oscuro ... para fondo oscuro
+  simbolo-un-color-* .......... versión de una sola tinta (sellos, grabados, impresión barata)
+  icono-app-verde ............. ícono cuadrado listo
+
+png-transparente/ ..... el símbolo con fondo transparente en 512, 1024 y 2048 px
+
+iconos-app/
+  icono-1024-tiendas.png ...... para App Store y para generar los demás tamaños
+  android/ .................... Play Store (512), ic_launcher por densidad (mdpi→xxxhdpi),
+                                versión redonda, y foreground para adaptive icon
+                                (fondo del adaptive icon: #2F6D5F)
+  ios/ ........................ tamaños 1024, 180, 167, 152, 120, 87, 80, 60 y 40
+
+  Flutter: pon icono-1024-tiendas.png en el paquete flutter_launcher_icons
+  y genera todo de una (adaptive_icon_background: "#2F6D5F",
+  adaptive_icon_foreground: android/adaptive-foreground-432.png).
+
+favicon-web/ .......... favicon.ico, favicon.svg, PNG 16→512 y apple-touch-icon
+  En el <head> de la web:
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon-180.png">
+
+logo-horizontal/ ...... símbolo + "predir", fondo transparente (color y blanco)
+
+COLORES: verde #2F6D5F · coral #E8836B · verde claro #9FD3C5 · tinta #18282A

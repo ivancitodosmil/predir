@@ -1,0 +1,200 @@
+---
+/**
+ * Hero: mensaje a la izquierda; a la derecha, lo que vendemos visto en dispositivos reales
+ * (laptop con el sistema de inventario + celular con las ventas del día), con motion graphics:
+ * circuito de datos con pulsos y gráficos que se dibujan.
+ * Con prefers-reduced-motion todo queda quieto.
+ */
+import HeroDemo from './HeroDemo.astro';
+import Icon from './Icon.astro';
+const beneficios = ['Inventario y ventas al día', 'Tareas que se hacen solas', 'Una marca que se ve profesional'];
+---
+<section class="hero on-dark" data-hero aria-labelledby="hero-titulo">
+  <div class="hero__fondo" aria-hidden="true">
+    <span class="brillo brillo--verde"></span>
+    <span class="brillo brillo--coral"></span>
+    <!-- Circuito de datos: líneas ortogonales con pulsos que viajan hacia los dispositivos -->
+    <svg class="circuito" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <g class="circuito__base">
+        <path d="M640 140 H820 V250 H960" /><path d="M560 760 H760 V640 H900" /><path d="M1440 300 H1340 V180 H1220" />
+        <path d="M1440 720 H1300 V820 H1120" /><path d="M700 420 H860" />
+      </g>
+      <g class="circuito__pulso">
+        <path d="M640 140 H820 V250 H960" /><path d="M560 760 H760 V640 H900" /><path d="M1440 300 H1340 V180 H1220" />
+        <path d="M1440 720 H1300 V820 H1120" /><path d="M700 420 H860" />
+      </g>
+      <g class="circuito__nodos">
+        <circle cx="960" cy="250" r="4" /><circle cx="900" cy="640" r="4" /><circle cx="1220" cy="180" r="4" /><circle cx="1120" cy="820" r="4" /><circle cx="860" cy="420" r="4" />
+      </g>
+    </svg>
+  </div>
+
+  <div class="wrap hero__grid">
+    <div class="hero__texto" data-enter>
+      <p class="label" style="--i:0">Software y Diseño - Loja, Ecuador</p>
+      <h1 id="hero-titulo" style="--i:1">
+        Lo que hoy haces <span class="h-coral">a&nbsp;mano</span>, mañana lo hace <span class="h-menta">tu&nbsp;sistema</span>.
+      </h1>
+      <p class="hero__lead" style="--i:2">
+        Transformamos procesos manuales en software a medida. Menos papel, menos errores, más control de tu negocio.
+      </p>
+      <div class="hero__acciones" style="--i:3">
+        <a href="#contacto" class="btn btn--primario">Solicitar propuesta <Icon name="arrow" /></a>
+        <a href="#servicios" class="btn btn--secundario">Ver servicios</a>
+      </div>
+      <ul role="list" class="hero__beneficios" style="--i:4">
+        {beneficios.map((b) => <li><Icon name="check" size={16} />{b}</li>)}
+      </ul>
+    </div>
+
+    <div class="hero__visual" data-enter>
+      <div class="escena" style="--i:3">
+        <!-- Laptop con el sistema -->
+        <div class="laptop">
+          <div class="laptop__pantalla">
+            <HeroDemo />
+          </div>
+          <div class="laptop__base" aria-hidden="true"></div>
+        </div>
+
+        <!-- Celular: ventas del día -->
+        <div class="cel" aria-hidden="true">
+          <div class="cel__notch"></div>
+          <p class="cel__t">Ventas de hoy</p>
+          <p class="cel__monto">$1.284<small>+18%</small></p>
+          <svg class="cel__linea" viewBox="0 0 140 48" preserveAspectRatio="none">
+            <path class="cel__area" d="M0 40 L20 34 L40 37 L60 24 L80 28 L100 14 L120 18 L140 6 L140 48 L0 48 Z" />
+            <path class="cel__trazo" d="M0 40 L20 34 L40 37 L60 24 L80 28 L100 14 L120 18 L140 6" pathLength="1" />
+          </svg>
+          <ul role="list" class="cel__lista">
+            <li><i class="v"></i><span>Factura N.º 184</span><b>$48</b></li>
+            <li><i class="m"></i><span>Factura N.º 183</span><b>$126</b></li>
+            <li><i class="c"></i><span>Pedido proveedor</span><b>3</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative; isolation: isolate; overflow: hidden;
+    min-height: 100svh;
+    display: flex; align-items: center;
+    padding: calc(var(--nav-h) + 40px) 0 64px;
+    background: var(--c-tinta); color: var(--c-blanco);
+  }
+
+  /* ——— Fondo ——— */
+  .hero__fondo { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .hero__fondo::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: radial-gradient(color-mix(in oklab, var(--c-menta) 20%, transparent) 1px, transparent 1.4px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(110% 90% at 65% 45%, #000 25%, transparent 75%);
+  }
+  .brillo { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.45; }
+  .brillo--verde { width: 620px; height: 620px; right: 4%; top: 6%; background: var(--c-verde); }
+  .brillo--coral { width: 380px; height: 380px; right: 26%; bottom: -8%; background: color-mix(in oklab, var(--c-coral) 70%, var(--c-tinta)); opacity: 0.28; }
+  .circuito { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .circuito path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .circuito__base path { stroke: color-mix(in oklab, var(--c-menta) 16%, transparent); stroke-width: 1.5; }
+  .circuito__pulso path { stroke: var(--c-menta); stroke-width: 2.5; stroke-dasharray: 26 900; stroke-dashoffset: 926; opacity: 0.9; }
+  .circuito__pulso path:nth-child(even) { stroke: var(--c-coral); }
+  .circuito__nodos circle { fill: var(--c-tinta); stroke: var(--c-menta); stroke-width: 2; }
+
+  /* ——— Texto ——— */
+  .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 64px; align-items: center; width: var(--wrap); position: relative; z-index: 1; }
+  .hero__texto { display: grid; gap: 26px; justify-items: start; }
+  h1 { font-size: var(--t-hero); line-height: 1.0; letter-spacing: -0.035em; max-width: 13ch; }
+  .h-coral { color: var(--c-coral); }
+  .h-menta { color: var(--c-menta); }
+  .hero__lead { font-size: var(--t-lead); line-height: 1.5; color: var(--c-texto-osc-suave); max-width: 40ch; }
+  .hero__acciones { display: flex; flex-wrap: wrap; gap: 12px; padding-top: 4px; }
+  .hero__beneficios { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 0.875rem; color: var(--c-texto-osc-suave); }
+  .hero__beneficios li { display: inline-flex; align-items: center; gap: 8px; }
+  .hero__beneficios :global(svg) { color: var(--c-menta); }
+
+  /* ——— Escena de dispositivos ——— */
+  .hero__visual { width: 100%; max-width: 640px; justify-self: center; }
+  .escena { position: relative; padding: 0 0 36px; }
+  .laptop { position: relative; width: 94%; }
+  .laptop__pantalla {
+    position: relative; padding: 10px; border-radius: 22px;
+    background: linear-gradient(180deg, #2a3b3d, #1c2c2e);
+    box-shadow: 0 0 0 1px rgb(255 255 255 / 0.06) inset, 0 40px 80px -30px rgb(0 0 0 / 0.7);
+  }
+  .laptop__pantalla::before { /* cámara */
+    content: ''; position: absolute; top: 4px; left: 50%; translate: -50% 0; width: 5px; height: 5px; border-radius: 50%; background: #0e1718;
+  }
+  .laptop__pantalla :global(.demo) { border-radius: 14px; box-shadow: none; }
+  .laptop__base {
+    height: 16px; margin: 0 -6%; border-radius: 2px 2px 18px 18px;
+    background: linear-gradient(180deg, #5d7174 0%, #3b4f52 40%, #24363a 100%);
+    box-shadow: 0 18px 30px -12px rgb(0 0 0 / 0.7);
+  }
+  .laptop__base::before { content: ''; display: block; width: 18%; height: 5px; margin: 0 auto; border-radius: 0 0 6px 6px; background: #1a2729; }
+
+  .cel {
+    position: absolute; right: -2%; bottom: 0; width: 34%; max-width: 200px; z-index: 2;
+    padding: 26px 12px 14px; border-radius: 26px;
+    background: var(--c-blanco); color: var(--c-tinta);
+    border: 6px solid #1c2c2e;
+    box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.75);
+  }
+  .cel__notch { position: absolute; top: 8px; left: 50%; translate: -50% 0; width: 34%; height: 8px; border-radius: 6px; background: #1c2c2e; }
+  .cel__t { font-size: 0.6875rem; color: var(--c-texto-suave); }
+  .cel__monto { font-family: var(--f-display); font-size: 1.5rem; font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; display: flex; align-items: baseline; gap: 6px; }
+  .cel__monto small { font-family: var(--f-mono); font-size: 0.625rem; color: var(--c-verde); background: color-mix(in oklab, var(--c-menta) 40%, var(--c-blanco)); padding: 2px 6px; border-radius: 99px; }
+  .cel__linea { width: 100%; height: 48px; margin: 8px 0 10px; }
+  .cel__area { fill: color-mix(in oklab, var(--c-menta) 40%, transparent); }
+  .cel__trazo { fill: none; stroke: var(--c-verde); stroke-width: 2.5; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+  .cel__lista { display: grid; gap: 7px; font-size: 0.625rem; }
+  .cel__lista li { display: grid; grid-template-columns: 8px 1fr auto; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 8px; background: var(--c-papel); }
+  .cel__lista i { width: 8px; height: 8px; border-radius: 50%; }
+  .cel__lista i.v { background: var(--c-verde); } .cel__lista i.m { background: var(--c-menta); } .cel__lista i.c { background: var(--c-coral); }
+  .cel__lista b { font-family: var(--f-mono); font-weight: 500; }
+
+
+  /* ——— Motion graphics ——— */
+  @media (prefers-reduced-motion: no-preference) {
+    .circuito__pulso path { animation: pulso 4.2s linear infinite; }
+    .circuito__pulso path:nth-child(2) { animation-delay: 1.1s; }
+    .circuito__pulso path:nth-child(3) { animation-delay: 2.3s; }
+    .circuito__pulso path:nth-child(4) { animation-delay: 0.6s; }
+    .circuito__pulso path:nth-child(5) { animation-delay: 3s; }
+    .circuito__nodos circle { animation: nodo 4.2s ease-in-out infinite; }
+    .circuito__nodos circle:nth-child(2n) { animation-delay: 1.4s; }
+    .brillo--verde { animation: respirar 9s ease-in-out infinite alternate; }
+
+    .cel { animation: flotar 6s var(--ease-in-out) infinite alternate; }
+    .cel__trazo { stroke-dashoffset: 1; animation: dibujar 2.4s var(--ease-out) 1.2s forwards; }
+    .cel__lista li { animation: entrar 600ms var(--ease-out) both; animation-delay: calc(1.6s + var(--d, 0s)); }
+    .cel__lista li:nth-child(2) { --d: 0.15s; } .cel__lista li:nth-child(3) { --d: 0.3s; }
+
+  }
+  @keyframes pulso { from { stroke-dashoffset: 926; } to { stroke-dashoffset: 0; } }
+  @keyframes nodo { 50% { stroke: var(--c-coral); r: 5; } }
+  @keyframes respirar { to { transform: translate(-30px, 20px) scale(1.08); } }
+  @keyframes flotar { to { transform: translateY(-10px); } }
+  @keyframes dibujar { to { stroke-dashoffset: 0; } }
+
+
+  @media (min-width: 1024px) {
+    .hero__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); }
+    .hero__texto { grid-column: 1 / span 6; }
+    .hero__visual { grid-column: 7 / -1; justify-self: end; max-width: none; }
+  }
+  @media (max-width: 1023px) {
+  }
+  @media (max-width: 639px) {
+    .hero { padding-top: calc(var(--nav-h) + 24px); align-items: flex-start; padding-bottom: 72px; }
+    .hero__acciones { display: grid; width: 100%; }
+    .hero__acciones .btn { width: 100%; }
+    .hero__beneficios { display: grid; gap: 8px; }
+    .laptop { width: 100%; }
+    .laptop__pantalla { padding: 6px; border-radius: 16px; }
+    .cel { display: none; }
+  }
+</style>

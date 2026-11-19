@@ -1,0 +1,222 @@
+---
+/**
+ * Demostración "cuaderno → sistema". Es una ilustración interactiva de lo que hace Predir;
+ * no representa a ningún cliente real (los productos y cifras son de ejemplo y así se anuncia).
+ */
+const filas = [
+  { p: 'Cemento 50 kg', s: 27, max: 60, estado: 'ok' },
+  { p: 'Varilla 12 mm', s: 96, max: 140, estado: 'ok' },
+  { p: 'Pintura blanca 1 gl', s: 4, max: 30, estado: 'bajo' },
+  { p: 'Tubo PVC ½"', s: 18, max: 80, estado: 'medio' },
+];
+---
+<div class="demo" data-demo data-estado="cuaderno" aria-label="Ejemplo ilustrativo: un inventario en cuaderno convertido en sistema" role="group">
+  <div class="demo__barra">
+    <div class="demo__toggle" role="radiogroup" aria-label="Ver el inventario">
+      <button type="button" role="radio" aria-checked="true" data-ver="cuaderno">A mano</button>
+      <button type="button" role="radio" aria-checked="false" data-ver="sistema">Con sistema</button>
+      <span class="demo__pista" aria-hidden="true"></span>
+    </div>
+    <span class="demo__tag">ejemplo</span>
+  </div>
+
+  <div class="demo__cuerpo">
+    <!-- Estado 1: cuaderno -->
+    <div class="hoja" data-capa="cuaderno" aria-hidden="false">
+      <p class="hoja__titulo">Inventario · noviembre</p>
+      <ul role="list" class="hoja__lista">
+        <li><span>Cemento 50 kg</span><span><s>40</s> <s>32</s> 27</span></li>
+        <li><span>Varilla 12 mm</span><span><s>120</s> 96 ?</span></li>
+        <li><span>Pintura blanca gl</span><span class="hoja__duda">¿? preguntar</span></li>
+        <li><span>Tubo PVC ½"</span><span><s>60</s> <s>41</s> 18</span></li>
+        <li><span>Factura proveedor</span><span class="hoja__duda">¿la pagamos?</span></li>
+      </ul>
+      <p class="hoja__nota">¡Contar la bodega el sábado!</p>
+    </div>
+
+    <!-- Estado 2: sistema -->
+    <div class="app" data-capa="sistema" aria-hidden="true">
+      <div class="app__head">
+        <p class="app__titulo">Inventario <span>Bodega principal</span></p>
+        <span class="app__sync"><i></i>Actualizado</span>
+      </div>
+      <div class="app__kpis">
+        <div class="kpi"><span>Productos</span><b>248</b></div>
+        <div class="kpi kpi--alerta"><span>Por reponer</span><b>3</b></div>
+        <div class="kpi kpi--ext"><span>Ventas de hoy</span><b>$1.284</b></div>
+      </div>
+      <table class="app__tabla">
+        <thead><tr><th scope="col">Producto</th><th scope="col">Stock</th><th scope="col"><span class="sr-only">Nivel</span></th></tr></thead>
+        <tbody>
+          {filas.map((f, i) => (
+            <tr style={`--i:${i}`} data-estado={f.estado}>
+              <td>{f.p}</td>
+              <td class="num">{f.s}</td>
+              <td>
+                <span class="nivel" style={`--v:${Math.round((f.s / f.max) * 100)}%`}><span></span></span>
+                {f.estado === 'bajo' && <span class="badge">Reponer</span>}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div class="app__pie">
+        <span>Pedido sugerido: 3 productos</span>
+        <span class="app__btn">Generar pedido</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .demo {
+    --demo-bg: var(--c-tinta-2);
+    position: relative; width: 100%;
+    border-radius: var(--r-l);
+    background: var(--demo-bg);
+    border: 1px solid var(--c-linea-osc);
+    box-shadow: 0 40px 80px -40px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(255 255 255 / 0.02) inset;
+    overflow: hidden;
+    color: var(--c-blanco);
+  }
+  .demo__barra { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 14px 0; }
+  .demo__toggle {
+    position: relative; display: inline-grid; grid-template-columns: 1fr 1fr;
+    padding: 4px; border-radius: var(--r-pill); background: rgb(0 0 0 / 0.28);
+  }
+  .demo__toggle button {
+    position: relative; z-index: 1; border: 0; background: none; cursor: pointer;
+    min-height: 40px; padding: 0 16px; border-radius: var(--r-pill);
+    font-size: 0.8125rem; font-weight: 500; color: var(--c-texto-osc-suave);
+    transition: color var(--dur-2) var(--ease-out);
+  }
+  .demo__toggle button[aria-checked='true'] { color: var(--c-tinta); }
+  .demo__pista {
+    position: absolute; z-index: 0; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px);
+    border-radius: var(--r-pill); background: var(--c-coral);
+    transition: transform var(--dur-3) var(--ease-out), background-color var(--dur-3) var(--ease-out);
+  }
+  .demo[data-estado='sistema'] .demo__pista { transform: translateX(100%); background: var(--c-menta); }
+  .demo__tag { font-family: var(--f-mono); font-size: 0.75rem; color: var(--c-texto-osc-suave); padding-right: 6px; }
+
+  .demo__cuerpo { display: grid; padding: 14px; }
+  .demo__cuerpo > * { grid-area: 1 / 1; transition: opacity 600ms var(--ease-out), transform 700ms var(--ease-out), filter 600ms var(--ease-out); }
+
+  /* ——— Cuaderno ——— */
+  .hoja {
+    position: relative;
+    background-color: color-mix(in oklab, var(--c-coral) 6%, var(--c-blanco));
+    background-image:
+      linear-gradient(90deg, transparent 47px, color-mix(in oklab, var(--c-coral) 55%, transparent) 47px 49px, transparent 49px),
+      repeating-linear-gradient(180deg, transparent 0 35px, color-mix(in oklab, var(--c-menta) 70%, transparent) 35px 36px);
+    background-position: 0 0, 0 14px;
+    color: color-mix(in oklab, var(--c-tinta) 85%, var(--c-verde));
+    border-radius: var(--r-m);
+    padding: 14px 20px 22px 64px;
+    font-family: var(--f-display);
+    transform: rotate(-0.6deg);
+  }
+  .hoja__titulo { font-size: 1.05rem; line-height: 36px; font-weight: 600; letter-spacing: -0.01em; }
+  .hoja__lista li { display: flex; justify-content: space-between; gap: 16px; line-height: 36px; font-size: 1rem; }
+  .hoja__lista li > span:last-child { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .hoja s { text-decoration-color: var(--c-coral); text-decoration-thickness: 2px; opacity: 0.7; }
+  .hoja__duda { color: color-mix(in oklab, var(--c-coral) 75%, var(--c-tinta)); font-style: italic; }
+  .hoja__nota {
+    position: absolute; right: 18px; bottom: 18px; max-width: 150px;
+    padding: 12px 14px; font-size: 0.875rem; line-height: 1.3;
+    background: var(--c-menta); color: var(--c-tinta); border-radius: 4px;
+    transform: rotate(3deg); box-shadow: 0 10px 20px -10px rgb(0 0 0 / 0.35);
+  }
+
+  /* ——— Sistema ——— */
+  .app { display: grid; gap: 14px; align-content: start; }
+  .app__head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 4px 4px 0; }
+  .app__titulo { font-family: var(--f-display); font-size: 1.25rem; letter-spacing: -0.015em; }
+  .app__titulo span { font-family: var(--f-texto); font-size: 0.8125rem; color: var(--c-texto-osc-suave); margin-left: 8px; }
+  .app__sync { display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; color: var(--c-menta); white-space: nowrap; }
+  .app__sync i { width: 7px; height: 7px; border-radius: 50%; background: var(--c-menta); box-shadow: 0 0 0 4px color-mix(in oklab, var(--c-menta) 22%, transparent); }
+  .app__kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .kpi { padding: 12px 14px; border-radius: 14px; background: rgb(255 255 255 / 0.04); border: 1px solid var(--c-linea-osc); display: grid; gap: 2px; }
+  .kpi span { font-size: 0.75rem; color: var(--c-texto-osc-suave); }
+  .kpi b { font-family: var(--f-display); font-weight: 500; font-size: 1.5rem; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .kpi--alerta b { color: var(--c-coral); }
+  .app__tabla { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  .app__tabla th { text-align: left; font-weight: 500; font-size: 0.75rem; color: var(--c-texto-osc-suave); padding: 0 8px 8px; }
+  .app__tabla td { padding: 10px 8px; border-top: 1px solid var(--c-linea-osc); white-space: nowrap; }
+  .app__tabla td:first-child { white-space: normal; }
+  .app__tabla .num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+  .app__tabla td:last-child { width: 42%; }
+  .nivel { display: inline-block; vertical-align: middle; width: min(100%, 120px); height: 6px; border-radius: 3px; background: rgb(255 255 255 / 0.08); overflow: hidden; }
+  .nivel span { display: block; height: 100%; width: var(--v); border-radius: inherit; background: var(--c-menta); transform-origin: left; }
+  tr[data-estado='bajo'] .nivel span { background: var(--c-coral); }
+  tr[data-estado='medio'] .nivel span { background: color-mix(in oklab, var(--c-menta) 60%, var(--c-coral)); }
+  .badge { margin-left: 8px; font-size: 0.6875rem; font-weight: 500; padding: 3px 8px; border-radius: var(--r-pill); color: var(--c-tinta); background: var(--c-coral); vertical-align: middle; }
+  .app__pie {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    padding: 10px 10px 10px 16px; border-radius: 14px; background: color-mix(in oklab, var(--c-verde) 45%, transparent);
+    font-size: 0.8125rem;
+  }
+  .app__btn { padding: 8px 14px; border-radius: var(--r-pill); background: var(--c-menta); color: var(--c-tinta); font-weight: 500; white-space: nowrap; }
+
+  /* ——— Transición entre estados ——— */
+  .demo[data-estado='cuaderno'] .app { opacity: 0; transform: translateY(16px) scale(0.98); filter: blur(6px); pointer-events: none; }
+  .demo[data-estado='sistema'] .hoja { opacity: 0; transform: rotate(-4deg) translateY(-12px) scale(0.94); filter: blur(4px); pointer-events: none; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .demo[data-estado='sistema'] .app__tabla tbody tr { animation: fila 600ms var(--ease-out) both; animation-delay: calc(240ms + var(--i) * 90ms); }
+    .demo[data-estado='sistema'] .nivel span { animation: barra 900ms var(--ease-out) both; animation-delay: calc(420ms + var(--i, 0) * 90ms); }
+    .demo[data-estado='sistema'] .app__sync i { animation: pulso 2.8s ease-in-out infinite; }
+  }
+  @keyframes fila { from { opacity: 0; transform: translateX(-10px); } }
+  @keyframes barra { from { transform: scaleX(0); } }
+  @keyframes pulso { 50% { box-shadow: 0 0 0 7px color-mix(in oklab, var(--c-menta) 0%, transparent); } }
+
+  @media (max-width: 520px) {
+    .kpi--ext { display: none; }
+    .app__kpis { grid-template-columns: repeat(2, 1fr); }
+    .app__tabla td:last-child { width: 34%; }
+    .badge { display: none; }
+    .hoja { padding-left: 56px; }
+    .hoja__nota { position: static; margin-top: 12px; max-width: none; transform: rotate(-1deg); }
+    .app__pie > span:first-child { font-size: 0.75rem; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-demo]').forEach((demo) => {
+    const botones = demo.querySelectorAll<HTMLButtonElement>('[data-ver]');
+    const capas = demo.querySelectorAll<HTMLElement>('[data-capa]');
+    const INTERVALO = 5000; // "A mano" ↔ "Con sistema" cada 5 segundos
+    let timer: number | undefined;
+
+    const set = (estado: string) => {
+      demo.dataset.estado = estado;
+      botones.forEach((b) => b.setAttribute('aria-checked', String(b.dataset.ver === estado)));
+      capas.forEach((c) => c.setAttribute('aria-hidden', String(c.dataset.capa !== estado)));
+    };
+    const alternar = () => set(demo.dataset.estado === 'sistema' ? 'cuaderno' : 'sistema');
+
+    const reducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const detener = () => window.clearInterval(timer);
+    const iniciar = () => {
+      window.clearInterval(timer);
+      if (!reducido) timer = window.setInterval(() => { if (!document.hidden) alternar(); }, INTERVALO);
+    };
+
+    botones.forEach((b, i) => {
+      // Al elegir manualmente, el ciclo automático se detiene: queda lo que el usuario eligió.
+      b.addEventListener('click', () => { set(b.dataset.ver!); detener(); });
+      b.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          const sig = botones[(i + 1) % botones.length];
+          sig.focus(); set(sig.dataset.ver!); detener();
+        }
+      });
+    });
+
+    // Con movimiento reducido se muestra el sistema, sin ciclo.
+    if (reducido) { set('sistema'); return; }
+    iniciar();
+  });
+</script>

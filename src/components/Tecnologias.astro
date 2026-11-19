@@ -1,0 +1,124 @@
+---
+/**
+ * Tecnologías en órbita: el símbolo de PREDIR al centro y tres anillos que giran
+ * (interior: frontend · medio: backend y nube · exterior: apps, datos y diseño).
+ * Los logos se mantienen derechos mientras su anillo gira. Nombres en tooltip y en lista accesible.
+ */
+import Simbolo from './Simbolo.astro';
+import { tecnologias } from '../data/contenido';
+
+const porGrupo = (n: string) => tecnologias.find((g) => g.grupo === n)?.items ?? [];
+const anillos = [
+  { clase: 'a1', radio: 24, dur: 38, sentido: 1, tono: 'var(--c-menta)', grupos: ['Frontend'] },
+  { clase: 'a2', radio: 36.5, dur: 56, sentido: -1, tono: 'var(--c-verde)', grupos: ['Backend y bases de datos', 'Nube y despliegue'] },
+  { clase: 'a3', radio: 48, dur: 74, sentido: 1, tono: 'var(--c-coral)', grupos: ['Apps móviles e IA', 'Datos y BI', 'Diseño'] },
+].map((a) => {
+  const items = a.grupos.flatMap(porGrupo).filter((t, i, arr) => arr.findIndex((x) => x.icono === t.icono) === i);
+  return {
+    ...a,
+    items: items.map((t, i) => {
+      const ang = (i / items.length) * Math.PI * 2 - Math.PI / 2;
+      return { ...t, x: 50 + a.radio * Math.cos(ang), y: 50 + a.radio * Math.sin(ang) };
+    }),
+  };
+});
+---
+<section class="section" id="tecnologias" aria-labelledby="tec-titulo">
+  <div class="wrap tec">
+    <header class="tec__txt">
+      <p class="label">Tecnologías</p>
+      <h2 id="tec-titulo">Nuestro stack tecnológico</h2>
+      <p class="sec-intro">Herramientas actuales y estables, elegidas para cada proyecto.</p>
+      <ul role="list" class="leyenda">
+        {anillos.map((a) => (
+          <li style={`--tono:${a.tono}`}><i></i>{a.grupos.join(' · ')}</li>
+        ))}
+      </ul>
+      <ul class="sr-only">
+        {tecnologias.map((g) => <li>{g.grupo}: {g.items.map((t) => t.nombre).join(', ')}</li>)}
+      </ul>
+    </header>
+
+    <div class="orbita" aria-hidden="true">
+      {anillos.map((a) => (
+        <div class={`anillo ${a.clase}`} style={`--r:${a.radio * 2}%;--dur:${a.dur}s;--dir:${a.sentido === 1 ? 'normal' : 'reverse'};--tono:${a.tono}`}>
+          {a.items.map((t) => (
+            <span class="sat" style={`left:${t.x.toFixed(2)}%;top:${t.y.toFixed(2)}%`} title={t.nombre}>
+              <span class="sat__tile"><img src={`/tech/${t.icono}.svg`} alt="" width={t.w} height={t.h} loading="lazy" decoding="async" /></span>
+              <span class="sat__nombre">{t.nombre}</span>
+            </span>
+          ))}
+        </div>
+      ))}
+      <div class="nucleo">
+        <span class="nucleo__pulso"></span>
+        <span class="nucleo__pulso nucleo__pulso--2"></span>
+        <Simbolo variante="color" size="56%" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tec { display: grid; gap: 40px; align-items: center; }
+  .tec__txt { display: grid; gap: 14px; justify-items: start; align-content: center; }
+  .leyenda { display: grid; gap: 10px; margin-top: 10px; }
+  .leyenda li { display: flex; align-items: center; gap: 12px; font-size: 0.9375rem; color: var(--c-texto-suave); }
+  .leyenda i { width: 26px; height: 26px; border-radius: 50%; border: 2px dashed var(--tono); flex: none; }
+
+  /* ——— Órbita ——— */
+  #tecnologias { overflow-x: clip; }
+  @media (max-width: 639px) { .orbita { width: min(100% - 32px, 600px); margin: 18px 0; } .sat__tile { box-shadow: 0 6px 14px -8px color-mix(in oklab, var(--c-tinta) 45%, transparent), 0 0 0 3px color-mix(in oklab, var(--tono) 18%, transparent); } }
+  /* margen interno para que los logos del anillo exterior nunca se salgan al girar */
+  .orbita { position: relative; width: min(100% - 56px, 600px); aspect-ratio: 1; justify-self: center; margin: 28px 0; }
+  .anillo { position: absolute; inset: 0; }
+  .anillo::before {
+    content: ''; position: absolute; left: 50%; top: 50%; width: var(--r); aspect-ratio: 1; translate: -50% -50%;
+    border-radius: 50%; border: 1.5px dashed color-mix(in oklab, var(--tono) 55%, transparent);
+  }
+  .sat { position: absolute; translate: -50% -50%; display: grid; justify-items: center; }
+  .sat__tile {
+    width: clamp(32px, 4.2vw, 58px); aspect-ratio: 1; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--c-blanco); border: 1px solid var(--c-linea);
+    box-shadow: 0 10px 24px -12px color-mix(in oklab, var(--c-tinta) 45%, transparent), 0 0 0 4px color-mix(in oklab, var(--tono) 18%, transparent);
+    transition: transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2);
+  }
+  .sat__tile img { width: 52%; height: 52%; object-fit: contain; }
+  .sat__nombre {
+    position: absolute; top: calc(100% + 6px); white-space: nowrap;
+    font-size: 0.75rem; font-weight: 500; padding: 3px 8px; border-radius: 99px;
+    background: var(--c-tinta); color: var(--c-blanco);
+    opacity: 0; transform: translateY(-4px); transition: opacity var(--dur-2), transform var(--dur-2);
+    pointer-events: none;
+  }
+  .sat:hover .sat__tile { transform: scale(1.15); box-shadow: 0 14px 28px -12px color-mix(in oklab, var(--c-tinta) 55%, transparent), 0 0 0 6px color-mix(in oklab, var(--tono) 35%, transparent); }
+  .sat:hover .sat__nombre { opacity: 1; transform: none; }
+
+  .nucleo {
+    position: absolute; left: 50%; top: 50%; width: 22%; aspect-ratio: 1; translate: -50% -50%;
+    border-radius: 50%; display: grid; place-items: center;
+    background: var(--c-blanco); box-shadow: 0 20px 50px -20px color-mix(in oklab, var(--c-verde) 70%, transparent);
+  }
+  .nucleo :global(svg) { position: relative; z-index: 1; }
+  .nucleo__pulso { position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--c-menta); opacity: 0; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .anillo { animation: orbita var(--dur) linear infinite; animation-direction: var(--dir); }
+    /* cada logo gira al revés de su anillo: se mantiene derecho */
+    .sat { animation: orbita var(--dur) linear infinite; animation-direction: var(--dir); }
+    .anillo .sat { animation-name: contra; }
+    .orbita:hover .anillo, .orbita:hover .sat { animation-play-state: paused; }
+    .nucleo__pulso { animation: pulso-nucleo 3s ease-out infinite; }
+    .nucleo__pulso--2 { animation-delay: 1.5s; }
+  }
+  @keyframes orbita { to { rotate: 360deg; } }
+  @keyframes contra { to { rotate: -360deg; } }
+  @keyframes pulso-nucleo { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.9); opacity: 0; } }
+
+  @media (min-width: 1024px) {
+    .tec { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); }
+    .tec__txt { grid-column: 1 / span 5; }
+    .orbita { grid-column: 6 / -1; }
+  }
+</style>

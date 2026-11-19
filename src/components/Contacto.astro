@@ -1,0 +1,187 @@
+---
+import Icon from './Icon.astro';
+import { site, whatsappLink, telefonoLocal } from '../config/site';
+const wa = whatsappLink();
+const { email, formEndpoint, formAccessKey, whatsapp } = site.contact;
+---
+<section class="section section--osc contacto" id="contacto" aria-labelledby="con-titulo">
+  <div class="wrap con-grid">
+    <div class="con__info">
+      <p class="label">Contacto</p>
+      <h2 id="con-titulo">Hablemos de tu proyecto</h2>
+      <p class="sec-intro">Cuéntanos qué quieres mejorar y te enviamos una propuesta. ¿Prefieres conversar? Escríbenos por WhatsApp.</p>
+
+      <ul role="list" class="canales">
+        <li>
+          <span class="canal__ico"><Icon name="whatsapp" /></span>
+          <div>
+            <p class="canal__t">WhatsApp</p>
+            {wa ? <a class="btn-wa canal__wa" href={wa} target="_blank" rel="noopener" aria-label={`Escribir por WhatsApp al ${telefonoLocal(whatsapp)}`}><Icon name="whatsapp" size={18} />{telefonoLocal(whatsapp)}</a> : <span class="provisional">Número por confirmar</span>}
+          </div>
+        </li>
+        <li>
+          <span class="canal__ico"><Icon name="mail" /></span>
+          <div>
+            <p class="canal__t">Correo</p>
+            {email ? <a class="link" href={`mailto:${email}`}>{email}</a> : <span class="provisional">Correo por confirmar</span>}
+          </div>
+        </li>
+        <li>
+          <span class="canal__ico"><Icon name="pin" /></span>
+          <div>
+            <p class="canal__t">Ubicación</p>
+            <p>{site.city}, {site.country}</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="con__form">
+      <form
+        class="form"
+        novalidate
+        data-form
+        data-endpoint={formEndpoint}
+        data-key={formAccessKey}
+        data-whatsapp={whatsapp}
+        data-email={email}
+        aria-describedby="form-nota"
+      >
+        <h3 class="form__t">Solicita una propuesta</h3>
+
+        <div class="campo">
+          <label for="f-nombre">Nombre <span aria-hidden="true">*</span></label>
+          <input id="f-nombre" name="nombre" type="text" autocomplete="name" required minlength="2" aria-describedby="e-nombre" />
+          <p class="campo__error" id="e-nombre" data-error-for="nombre"></p>
+        </div>
+
+        <div class="campo-fila">
+          <div class="campo">
+            <label for="f-correo">Correo <span aria-hidden="true">*</span></label>
+            <input id="f-correo" name="correo" type="email" autocomplete="email" required inputmode="email" aria-describedby="e-correo" />
+            <p class="campo__error" id="e-correo" data-error-for="correo"></p>
+          </div>
+          <div class="campo">
+            <label for="f-tel">Teléfono <span class="opc">(opcional)</span></label>
+            <input id="f-tel" name="telefono" type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9+\s\-()]{7,20}" aria-describedby="e-tel" />
+            <p class="campo__error" id="e-tel" data-error-for="telefono"></p>
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="f-negocio">Negocio o empresa <span class="opc">(opcional)</span></label>
+          <input id="f-negocio" name="negocio" type="text" autocomplete="organization" />
+        </div>
+
+        <fieldset class="campo">
+          <legend>¿Qué necesitas? <span aria-hidden="true">*</span></legend>
+          <div class="chips" role="group" aria-describedby="e-necesidad">
+            {['Sistema de gestión', 'Automatización', 'Web o app', 'Identidad visual', 'Diagnóstico'].map((o, i) => (
+              <label class="chip">
+                <input type="checkbox" name="necesidad" value={o} />
+                <span>{o}</span>
+              </label>
+            ))}
+          </div>
+          <p class="campo__error" id="e-necesidad" data-error-for="necesidad"></p>
+        </fieldset>
+
+        <div class="campo">
+          <label for="f-mensaje">Cuéntanos tu caso <span aria-hidden="true">*</span></label>
+          <textarea id="f-mensaje" name="mensaje" rows="4" required minlength="15" maxlength="2000" placeholder="Ej.: llevamos el inventario en Excel y cada mes perdemos ventas por falta de stock." aria-describedby="e-mensaje"></textarea>
+          <p class="campo__error" id="e-mensaje" data-error-for="mensaje"></p>
+        </div>
+
+        <!-- Trampa antispam: invisible para personas -->
+        <div class="trampa" aria-hidden="true">
+          <label>No llenar <input type="text" name="sitio_web" tabindex="-1" autocomplete="off" /></label>
+        </div>
+
+        <button type="submit" class="btn btn--primario form__btn" data-submit>
+          <span class="form__spin" aria-hidden="true"></span>
+          <span data-submit-label>Enviar solicitud</span>
+        </button>
+
+        <p class="form__nota" id="form-nota">Usamos tus datos solo para responderte.</p>
+        <div class="form__estado" role="status" aria-live="polite" data-estado hidden></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contacto { padding-bottom: clamp(96px, 8vw, 140px); }
+  .con-grid { display: grid; gap: 56px; }
+  .con__info { display: grid; gap: 24px; align-content: start; }
+  .canales { display: grid; gap: 20px; margin-top: 16px; }
+  .canales li { display: flex; gap: 16px; align-items: center; }
+  .canal__ico { width: 48px; height: 48px; flex: none; border-radius: 14px; display: grid; place-items: center; background: var(--c-tinta-2); color: var(--c-menta); border: 1px solid var(--c-linea-osc); }
+  .canal__t { font-family: var(--f-mono); font-size: 0.75rem; color: var(--c-texto-osc-suave); }
+  .canales a.link { display: inline-block; padding-block: 4px; }
+  .canal__wa { margin-top: 6px; min-height: 44px; font-family: var(--f-mono); font-size: 0.875rem; }
+
+  .form {
+    display: grid; gap: 20px;
+    padding: clamp(24px, 3.4vw, 44px);
+    border-radius: var(--r-l);
+    background: var(--c-papel); color: var(--c-tinta);
+  }
+  .form__t { font-size: var(--t-h3); }
+  .campo { display: grid; gap: 8px; border: 0; padding: 0; margin: 0; min-width: 0; }
+  .campo-fila { display: grid; gap: 20px; }
+  .campo label, .campo legend { font-size: 0.9375rem; font-weight: 500; padding: 0; }
+  .opc { font-weight: 400; color: var(--c-texto-suave); }
+  .campo input, .campo textarea {
+    width: 100%; min-height: 52px; padding: 14px 16px;
+    border-radius: 14px; border: 1.5px solid color-mix(in oklab, var(--c-tinta) 18%, transparent);
+    background: var(--c-blanco); font-size: 1rem; line-height: 1.4;
+    transition: border-color var(--dur-1), box-shadow var(--dur-1);
+  }
+  .campo textarea { resize: vertical; min-height: 128px; }
+  .campo input::placeholder, .campo textarea::placeholder { color: color-mix(in oklab, var(--c-tinta) 50%, transparent); }
+  .campo input:hover, .campo textarea:hover { border-color: color-mix(in oklab, var(--c-tinta) 35%, transparent); }
+  .campo input:focus-visible, .campo textarea:focus-visible { outline: none; border-color: var(--c-verde); box-shadow: 0 0 0 4px color-mix(in oklab, var(--c-menta) 55%, transparent); }
+  .campo [aria-invalid='true'] { border-color: var(--c-coral); }
+  .campo__error { min-height: 0; font-size: 0.8125rem; color: color-mix(in oklab, var(--c-coral) 50%, var(--c-tinta)); display: flex; gap: 6px; }
+  .campo__error:empty { display: none; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { position: relative; cursor: pointer; }
+  .chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .chip span {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
+    border-radius: var(--r-pill); border: 1.5px solid color-mix(in oklab, var(--c-tinta) 18%, transparent);
+    background: var(--c-blanco); font-size: 0.9375rem;
+    transition: background-color var(--dur-1), border-color var(--dur-1), color var(--dur-1), transform var(--dur-1);
+  }
+  .chip:hover span { border-color: var(--c-verde); }
+  .chip:active span { transform: scale(0.97); }
+  .chip input:checked + span { background: var(--c-verde); border-color: var(--c-verde); color: var(--c-blanco); }
+  .chip input:focus-visible + span { outline: 3px solid var(--c-verde); outline-offset: 2px; }
+
+  .trampa { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  .form__btn { justify-self: start; position: relative; }
+  .contacto .form .btn--primario { --btn-bg: var(--c-verde); --btn-fg: var(--c-blanco); }
+  .contacto .form .btn--primario:hover { --btn-bg: color-mix(in oklab, var(--c-verde) 86%, var(--c-tinta)); }
+  .contacto .form .btn--secundario { --btn-fg: var(--c-tinta); --btn-bd: color-mix(in oklab, var(--c-tinta) 28%, transparent); }
+  .form__spin { display: none; width: 16px; height: 16px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: girar 700ms linear infinite; }
+  .form.is-enviando .form__spin { display: inline-block; }
+  @keyframes girar { to { transform: rotate(1turn); } }
+  .form__nota { font-size: var(--t-small); color: var(--c-texto-suave); }
+  .form__estado { padding: 16px 18px; border-radius: 14px; font-size: 0.9375rem; display: grid; gap: 12px; }
+  .form__estado[data-tipo='ok'] { background: color-mix(in oklab, var(--c-menta) 45%, var(--c-blanco)); }
+  .form__estado[data-tipo='error'], .form__estado[data-tipo='pendiente'] { background: color-mix(in oklab, var(--c-coral) 18%, var(--c-blanco)); }
+  .form__estado .acciones { display: flex; flex-wrap: wrap; gap: 8px; }
+  .form__estado .btn { min-height: 44px; font-size: 0.9375rem; }
+
+  @media (min-width: 640px) { .campo-fila { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) {
+    .con-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); }
+    .con__info { grid-column: 1 / span 5; }
+    .con__form { grid-column: 7 / -1; }
+  }
+  @media (max-width: 639px) { .form__btn { width: 100%; } }
+</style>
+
+<script src="../scripts/formulario.ts"></script>

@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+---
+<Base title="Página no encontrada" noindex>
+  <section class="nf on-dark" data-hero>
+    <div class="wrap nf__in">
+      <p class="label">Error 404</p>
+      <h1>Esta página no existe, o se movió.</h1>
+      <p>Puede que el enlace esté incompleto. Vuelve al inicio para seguir navegando.</p>
+      <a class="btn btn--primario" href="/">Volver al inicio <Icon name="arrow" /></a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { min-height: 80svh; display: flex; align-items: center; background: var(--c-tinta); color: var(--c-blanco); padding: calc(var(--nav-h) + 48px) 0 80px; }
+  .nf__in { display: grid; gap: 24px; justify-items: start; }
+  .nf h1 { font-size: var(--t-h2); max-width: 18ch; }
+  .nf p:not(.label) { color: var(--c-texto-osc-suave); font-size: var(--t-lead); }
+</style>

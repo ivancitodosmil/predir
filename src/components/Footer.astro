@@ -1,0 +1,65 @@
+---
+import Logo from './Logo.astro';
+import Simbolo from './Simbolo.astro';
+import { nav, site, whatsappLink, telefonoLocal } from '../config/site';
+const wa = whatsappLink();
+const anio = new Date().getFullYear();
+---
+<footer class="pie on-dark">
+  <div class="wrap">
+    <div class="pie__top">
+      <div class="pie__marca">
+        <Logo tono="blanco" alto={36} />
+        <p>Transformamos procesos manuales en soluciones digitales. Software, automatización y marca desde Loja.</p>
+      </div>
+      <nav class="pie__col" aria-label="Secciones">
+        <p class="pie__t">Secciones</p>
+        <ul role="list">
+          {nav.map((l) => <li><a class="link" href={l.href}>{l.label}</a></li>)}
+          <li><a class="link" href="/#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+      <div class="pie__col">
+        <p class="pie__t">Contacto</p>
+        <ul role="list">
+          <li>{site.city}, {site.country}</li>
+          {site.contact.email && <li><a class="link" href={`mailto:${site.contact.email}`}>{site.contact.email}</a></li>}
+          {wa && <li><a class="link" href={wa} target="_blank" rel="noopener">WhatsApp {telefonoLocal(site.contact.whatsapp)}</a></li>}
+        </ul>
+      </div>
+      <div class="pie__col">
+        <p class="pie__t">Marca</p>
+        <ul role="list">
+          <li><a class="link" href="/marca">Manual de identidad</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pie__base">
+      <p>© {anio} {site.name}. Loja, Ecuador.</p>
+      <Simbolo variante="oscuro" size={28} />
+    </div>
+  </div>
+</footer>
+
+<style>
+  .pie { background: var(--c-tinta); color: var(--c-blanco); padding: 96px 0 40px; }
+  .pie__top { display: grid; gap: 48px; grid-template-columns: 1fr; }
+  .pie__marca p { margin-top: 24px; max-width: 34ch; color: var(--c-texto-osc-suave); }
+  .pie__t { font-family: var(--f-mono); font-size: var(--t-label); color: var(--c-menta); margin-bottom: 16px; }
+  .pie__col ul { display: grid; gap: 4px; }
+  .pie__col li { color: var(--c-texto-osc-suave); }
+  .pie__col a { color: var(--c-blanco); display: inline-block; padding-block: 10px; }
+  .pie__base {
+    margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--c-linea-osc);
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    font-size: var(--t-small); color: var(--c-texto-osc-suave);
+  }
+  @media (min-width: 640px) { .pie__top { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) {
+    .pie__top { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); }
+    .pie__marca { grid-column: 1 / span 5; }
+    .pie__col:nth-of-type(1) { grid-column: 7 / span 2; }
+    .pie__col:nth-of-type(2) { grid-column: 9 / span 2; }
+    .pie__col:nth-of-type(3) { grid-column: 11 / span 2; }
+  }
+</style>

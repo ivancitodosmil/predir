@@ -1,0 +1,22 @@
+---
+/** Botón flotante de WhatsApp (píldora verde de marca): siempre al número principal (Iván González) con mensaje inicial. */
+import Icon from './Icon.astro';
+import { whatsappLink } from '../config/site';
+const href = whatsappLink();
+---
+{href && (
+  <a class="wa-flot btn-wa" href={href} target="_blank" rel="noopener" aria-label="Escribir a PREDIR por WhatsApp">
+    <Icon name="whatsapp" size={20} />
+    <span>WhatsApp</span>
+  </a>
+)}
+
+<style>
+  .wa-flot {
+    position: fixed; right: 24px; bottom: 24px; z-index: 45;
+    box-shadow: 0 16px 34px -12px color-mix(in oklab, var(--c-tinta) 70%, transparent);
+  }
+  :global(html.menu-abierto) .wa-flot { opacity: 0; pointer-events: none; }
+  @media (max-width: 639px) { .wa-flot { right: 16px; bottom: 16px; } }
+  @media print { .wa-flot { display: none; } }
+</style>

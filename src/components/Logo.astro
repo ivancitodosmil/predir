@@ -1,0 +1,28 @@
+---
+/**
+ * Logotipo horizontal oficial (símbolo + "predir").
+ * Fuente: Predir-Logo/logo-horizontal/*.png, recortado solo en su margen transparente
+ * (proporción 969:275 ≈ 3,52:1) y redimensionado a 320/640 px para la web.
+ * No existe versión vectorial: ver docs/PENDIENTES.md.
+ */
+interface Props { tono?: 'color' | 'blanco'; alto?: number; class?: string; eager?: boolean }
+const { tono = 'color', alto = 34, class: cls, eager = false } = Astro.props;
+const ancho = Math.round((alto * 969) / 275);
+const base = `/brand/logo-horizontal-${tono}`;
+---
+<picture class={cls}>
+  <source
+    type="image/webp"
+    srcset={`${base}-320.webp 320w, ${base}-640.webp 640w, ${base}-recorte.webp 969w`}
+    sizes={`${ancho}px`}
+  />
+  <img
+    src={`${base}-recorte.png`}
+    width={ancho}
+    height={alto}
+    alt="Predir"
+    loading={eager ? 'eager' : 'lazy'}
+    decoding="async"
+    style={`height:${alto}px;width:auto`}
+  />
+</picture>

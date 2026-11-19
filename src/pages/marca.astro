@@ -1,0 +1,639 @@
+---
+/**
+ * Manual de identidad visual de Predir (v0.1).
+ * Construido con los archivos reales de Predir-Logo. Lo que no existía se marca como
+ * "propuesta" (decisión de diseño a validar) o "pendiente" (información que falta).
+ */
+import Base from '../layouts/Base.astro';
+import Simbolo from '../components/Simbolo.astro';
+import Logo from '../components/Logo.astro';
+import Icon from '../components/Icon.astro';
+
+const colores = [
+  { id: 'verde', nombre: 'Verde Predir', hex: '#2F6D5F', rgb: '47 · 109 · 95', hsl: '166° 40% 31%', rol: 'Primario. Botones, enlaces, titulares de acento y fondos de marca.', fg: '#FFFFFF' },
+  { id: 'coral', nombre: 'Coral', hex: '#E8836B', rgb: '232 · 131 · 107', hsl: '12° 73% 66%', rol: 'Acento. Mitad "d" del símbolo, alertas, detalles. Nunca como texto sobre claro.', fg: '#18282A' },
+  { id: 'menta', nombre: 'Verde claro', hex: '#9FD3C5', rgb: '159 · 211 · 197', hsl: '164° 37% 73%', rol: 'Primario sobre fondos oscuros. Superficies suaves y datos.', fg: '#18282A' },
+  { id: 'tinta', nombre: 'Tinta', hex: '#18282A', rgb: '24 · 40 · 42', hsl: '187° 27% 13%', rol: 'Texto principal, palabra "predir" y fondos oscuros.', fg: '#FFFFFF' },
+];
+
+const contrastes = [
+  ['Tinta sobre blanco', '15,26 : 1', 'AAA', '#18282A', '#FFFFFF'],
+  ['Verde sobre blanco', '6,05 : 1', 'AA', '#2F6D5F', '#FFFFFF'],
+  ['Blanco sobre verde', '6,05 : 1', 'AA', '#FFFFFF', '#2F6D5F'],
+  ['Verde claro sobre tinta', '9,16 : 1', 'AAA', '#9FD3C5', '#18282A'],
+  ['Coral sobre tinta', '5,73 : 1', 'AA', '#E8836B', '#18282A'],
+  ['Tinta sobre coral', '5,73 : 1', 'AA', '#18282A', '#E8836B'],
+  ['Coral sobre blanco', '2,66 : 1', 'Solo decorativo', '#E8836B', '#FFFFFF'],
+  ['Verde claro sobre blanco', '1,67 : 1', 'Solo decorativo', '#9FD3C5', '#FFFFFF'],
+];
+
+const variantes = [
+  { archivo: 'simbolo-color.svg', v: 'color', fondo: '#FFFFFF', uso: 'Fondos claros (uso principal)' },
+  { archivo: 'simbolo-para-fondo-oscuro.svg', v: 'oscuro', fondo: '#18282A', uso: 'Fondos oscuros' },
+  { archivo: 'simbolo-blanco.svg', v: 'blanco', fondo: '#2F6D5F', uso: 'Fondo verde' },
+  { archivo: 'simbolo-un-color-verde.svg', v: 'verde', fondo: '#FFFFFF', uso: 'Una tinta: sellos, grabados' },
+  { archivo: 'simbolo-un-color-blanco.svg', v: 'blanco-1', fondo: '#2F6D5F', uso: 'Una tinta sobre color' },
+] as const;
+
+const incorrectos = [
+  { t: 'No rotar', s: 'transform: rotate(-24deg)' },
+  { t: 'No deformar', s: 'transform: scaleX(1.45)' },
+  { t: 'No cambiar los colores', s: 'filter: hue-rotate(150deg)' },
+  { t: 'No añadir sombras ni efectos', s: 'filter: drop-shadow(6px 8px 0 #18282A)' },
+  { t: 'No usar sobre fondos sin contraste', s: '', fondo: '#9FD3C5' },
+  { t: 'No invertir las mitades', s: 'transform: scaleX(-1)' },
+];
+
+const iconos = ['box', 'folders', 'chart', 'repeat', 'device', 'pen', 'code', 'compass', 'mail', 'pin', 'clock', 'check', 'arrow', 'plus', 'image', 'user'];
+
+const tipos = [
+  { nivel: 'Display / H1', fam: 'Bricolage Grotesque', peso: '500', tam: '76 / 40 px', lh: '1,0', tr: '−3,5 %', ej: 'Lo manual, digital', cls: 't-h1' },
+  { nivel: 'H2 · Sección', fam: 'Bricolage Grotesque', peso: '500', tam: '52 / 32 px', lh: '1,04', tr: '−2,5 %', ej: 'Cómo trabajamos', cls: 't-h2' },
+  { nivel: 'H3 · Tarjeta', fam: 'Bricolage Grotesque', peso: '500', tam: '28 / 22 px', lh: '1,15', tr: '−1,5 %', ej: 'Sistemas de gestión', cls: 't-h3' },
+  { nivel: 'Entradilla', fam: 'Geist', peso: '400', tam: '21 / 18 px', lh: '1,55', tr: '0', ej: 'Convertimos procesos manuales en sistemas.', cls: 't-lead' },
+  { nivel: 'Texto', fam: 'Geist', peso: '400', tam: '16 px', lh: '1,625', tr: '0', ej: 'Visitamos tu negocio y vemos cómo se trabaja hoy.', cls: 't-body' },
+  { nivel: 'Etiqueta técnica', fam: 'Geist Mono', peso: '500', tam: '13 px', lh: '1,4', tr: '+2 %', ej: '01 · Ordenar', cls: 't-mono' },
+];
+---
+<Base title="Manual de identidad visual" description="Manual de identidad visual de Predir: logotipo, colores, tipografía, elementos gráficos, componentes y movimiento." interna>
+  <article class="manual">
+    <!-- Portada -->
+    <header class="m-portada on-dark">
+      <div class="wrap m-portada__in">
+        <p class="label">Manual de identidad visual · v0.1 · noviembre 2026</p>
+        <h1>predir</h1>
+        <p class="m-portada__sub">Cómo se ve, cómo suena y cómo se mueve la marca. Referencia para el sitio web y para todos los proyectos futuros.</p>
+        <div class="m-leyenda">
+          <span><i class="dot dot--ok"></i>Dato de la marca (archivos originales)</span>
+          <span><i class="dot dot--prop"></i>Propuesta de diseño, a validar</span>
+          <span><i class="dot dot--pend"></i>Información pendiente</span>
+        </div>
+        <nav class="m-indice" aria-label="Índice del manual">
+          <ol role="list">
+            {['Presentación', 'Concepto y personalidad', 'Logotipo', 'Usos incorrectos', 'Color', 'Tipografía', 'Elementos gráficos', 'Iconografía', 'Fotografía', 'Aplicaciones digitales', 'Componentes', 'Movimiento', 'Pendientes'].map((t, i) => (
+              <li><a class="link" href={`#m${i + 1}`}><span>{String(i + 1).padStart(2, '0')}</span>{t}</a></li>
+            ))}
+          </ol>
+        </nav>
+      </div>
+      <div class="m-portada__simbolo" aria-hidden="true"><Simbolo variante="oscuro" size="100%" /></div>
+    </header>
+
+    <!-- 01 Presentación -->
+    <section class="m-sec" id="m1">
+      <div class="wrap m-grid">
+        <div class="m-head"><p class="m-num">01</p><h2>Presentación</h2></div>
+        <div class="m-body">
+          <p class="m-lead">Predir es un estudio de soluciones tecnológicas de Loja, Ecuador, fundado por Iván González (desarrollo de software) y Fabián Galarza (diseño y línea gráfica).</p>
+          <p>Su trabajo consiste en identificar los procesos que un negocio todavía hace a mano y convertirlos en herramientas digitales: sistemas de gestión, automatizaciones, plataformas web y aplicaciones. A eso se suma la creación de identidades visuales.</p>
+          <p>Este manual reúne lo que existe hoy de la marca (los archivos de la carpeta <code>Predir-Logo</code>) y las decisiones tomadas para llevarla al entorno digital. Cada decisión nueva está marcada para que los socios la validen.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 Concepto -->
+    <section class="m-sec m-sec--alt" id="m2">
+      <div class="wrap m-grid">
+        <div class="m-head"><p class="m-num">02</p><h2>Concepto y personalidad</h2><span class="tag tag--prop">Propuesta</span></div>
+        <div class="m-body">
+          <p class="m-lead">Una lectura del símbolo: una <b>p</b> y una <b>d</b> que comparten el mismo anillo. Dos trazos distintos que, juntos, forman una sola figura.</p>
+          <p>De ahí sale el concepto que proponemos para comunicar: <b>dos oficios, un mismo trazo</b>. Desarrollo y diseño trabajando como una sola pieza, del mismo modo que la empresa une lo manual con lo digital.</p>
+          <p class="nota"><span class="tag tag--pend">Pendiente</span> Confirmar con Fabián el significado original del símbolo, de sus dos colores y del nombre "Predir".</p>
+          <ul role="list" class="rasgos">
+            <li><b>Claro</b><span>Explica sin tecnicismos. Dice qué hace y para quién.</span></li>
+            <li><b>Preciso</b><span>Cuida el detalle: retícula, alineaciones, datos correctos.</span></li>
+            <li><b>Cercano</b><span>Habla de tú, conoce Loja y acompaña después de entregar.</span></li>
+            <li><b>Creativo</b><span>Resuelve con criterio propio, no con plantillas.</span></li>
+          </ul>
+          <div class="voz">
+            <div><p class="voz__t">Así sí</p><p>"Tu inventario, al día y desde el celular."</p></div>
+            <div><p class="voz__t voz__t--no">Así no</p><p>"Soluciones innovadoras que llevan tu negocio al siguiente nivel."</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 Logotipo -->
+    <section class="m-sec" id="m3">
+      <div class="wrap">
+        <div class="m-grid">
+          <div class="m-head"><p class="m-num">03</p><h2>Logotipo</h2><span class="tag tag--ok">De la marca</span></div>
+          <div class="m-body">
+            <p class="m-lead">El logotipo se compone del símbolo y la palabra <b>predir</b> en minúsculas. El símbolo puede usarse solo cuando el nombre ya está presente o el espacio es reducido (favicon, íconos de app, avatares).</p>
+          </div>
+        </div>
+
+        <div class="logo-pares">
+          <figure class="lienzo lienzo--claro"><Logo tono="color" alto={72} /><figcaption>Horizontal · color · <code>logo-horizontal-color.png</code></figcaption></figure>
+          <figure class="lienzo lienzo--osc"><Logo tono="blanco" alto={72} /><figcaption>Horizontal · blanco · <code>logo-horizontal-blanco.png</code></figcaption></figure>
+        </div>
+
+        <h3 class="m-h3">Anatomía del símbolo</h3>
+        <div class="anatomia">
+          <figure class="lienzo lienzo--claro anatomia__fig">
+            <div class="anatomia__dib">
+              <svg class="anatomia__guias" viewBox="0 0 120 120" aria-hidden="true">
+                <rect x="0.25" y="0.25" width="119.5" height="119.5" />
+                <path d="M26 0V120 M42 0V120 M78 0V120 M94 0V120 M0 60H120 M60 0V120" />
+                <circle cx="60" cy="60" r="34" /><circle cx="60" cy="60" r="18" />
+              </svg>
+              <Simbolo variante="color" size="100%" />
+            </div>
+            <figcaption>Retícula de 120 × 120 unidades (archivos SVG originales)</figcaption>
+          </figure>
+          <dl class="medidas">
+            <div><dt>Trazo</dt><dd>16 u, terminales redondeados (radio 8 u)</dd></div>
+            <div><dt>Anillo</dt><dd>Radio medio 26 u: exterior 34 u, interior 18 u</dd></div>
+            <div><dt>Asta "p"</dt><dd>Desciende de y = 60 a y = 116, a la izquierda</dd></div>
+            <div><dt>Asta "d"</dt><dd>Asciende de y = 4 a y = 60, a la derecha</dd></div>
+            <div><dt>División</dt><dd>Vertical exacta en x = 60: mitad izquierda verde, derecha coral</dd></div>
+            <div><dt>Simetría</dt><dd>Rotación de 180° entre la "p" y la "d"</dd></div>
+          </dl>
+        </div>
+
+        <h3 class="m-h3">Variantes oficiales del símbolo</h3>
+        <ul role="list" class="variantes">
+          {variantes.map((v) => (
+            <li>
+              <div class="variantes__lienzo" style={`background:${v.fondo}`}><Simbolo variante={v.v} size={88} /></div>
+              <p>{v.uso}</p>
+              <code>{v.archivo}</code>
+            </li>
+          ))}
+          <li>
+            <div class="variantes__lienzo" style="background:#F4F8F7"><img src="/brand/icono-app-verde.svg" width="88" height="88" alt="Ícono de app de Predir" style="border-radius:20px" /></div>
+            <p>Ícono de app (fondo #2F6D5F)</p>
+            <code>icono-app-verde.svg</code>
+          </li>
+        </ul>
+
+        <div class="m-cols">
+          <div>
+            <h3 class="m-h3">Área de protección <span class="tag tag--prop">Propuesta</span></h3>
+            <figure class="lienzo lienzo--claro proteccion">
+              <div class="proteccion__caja"><Logo tono="color" alto={56} /></div>
+              <figcaption>Margen mínimo = alto de la letra "p" del símbolo (≈ ⅓ de la altura del logotipo) en los cuatro lados.</figcaption>
+            </figure>
+          </div>
+          <div>
+            <h3 class="m-h3">Tamaños mínimos <span class="tag tag--prop">Propuesta</span></h3>
+            <div class="minimos">
+              <div><Logo tono="color" alto={24} /><p>Horizontal: 24 px de alto en pantalla · 25 mm de ancho impreso</p></div>
+              <div><Simbolo variante="color" size={16} /><p>Símbolo: 16 px (existe <code>favicon-16.png</code>)</p></div>
+            </div>
+            <p class="nota"><span class="tag tag--pend">Pendiente</span> El logotipo horizontal solo existe en PNG. Se necesita la versión vectorial (SVG/AI) y el nombre de su tipografía.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 Usos incorrectos -->
+    <section class="m-sec m-sec--alt" id="m4">
+      <div class="wrap">
+        <div class="m-grid">
+          <div class="m-head"><p class="m-num">04</p><h2>Usos incorrectos</h2></div>
+          <div class="m-body"><p class="m-lead">El símbolo se usa siempre tal como está en los archivos originales. Estos son los errores más comunes.</p></div>
+        </div>
+        <ul role="list" class="mal">
+          {incorrectos.map((m) => (
+            <li>
+              <div class="mal__lienzo" style={m.fondo ? `background:${m.fondo}` : undefined}>
+                <div style={m.s}><Simbolo variante="color" size={96} /></div>
+                <span class="mal__x" aria-hidden="true"><Icon name="close" size={18} /></span>
+              </div>
+              <p>{m.t}</p>
+            </li>
+          ))}
+        </ul>
+        <p class="nota">Tampoco: contornear el símbolo, separar sus mitades, cambiar el orden símbolo-palabra, reescribir "predir" con otra tipografía o en mayúsculas.</p>
+      </div>
+    </section>
+
+    <!-- 05 Color -->
+    <section class="m-sec" id="m5">
+      <div class="wrap">
+        <div class="m-grid">
+          <div class="m-head"><p class="m-num">05</p><h2>Color</h2><span class="tag tag--ok">De la marca</span></div>
+          <div class="m-body"><p class="m-lead">Cuatro colores corporativos, definidos en el archivo <code>LEEME.txt</code> de la carpeta de marca. No se agregan colores nuevos: cualquier tono adicional se obtiene mezclándolos.</p></div>
+        </div>
+        <ul role="list" class="paleta">
+          {colores.map((c) => (
+            <li class="color">
+              <div class="color__mues" style={`background:${c.hex};color:${c.fg}`}>
+                <span>{c.nombre}</span>
+                <button type="button" class="color__copiar" data-copiar={c.hex} aria-label={`Copiar ${c.hex}`}>{c.hex}</button>
+              </div>
+              <dl>
+                <div><dt>HEX</dt><dd>{c.hex}</dd></div>
+                <div><dt>RGB</dt><dd>{c.rgb}</dd></div>
+                <div><dt>HSL</dt><dd>{c.hsl}</dd></div>
+                <div><dt>CMYK</dt><dd><span class="tag tag--pend">Pendiente</span></dd></div>
+              </dl>
+              <p>{c.rol}</p>
+            </li>
+          ))}
+        </ul>
+
+        <div class="m-cols">
+          <div>
+            <h3 class="m-h3">Proporción de uso <span class="tag tag--prop">Propuesta</span></h3>
+            <div class="proporcion" aria-hidden="true">
+              <span style="flex:44;background:#F4F8F7;color:#18282A">Papel 44%</span>
+              <span style="flex:26;background:#18282A">Tinta 26%</span>
+              <span style="flex:16;background:#2F6D5F">Verde 16%</span>
+              <span style="flex:9;background:#9FD3C5;color:#18282A">9%</span>
+              <span style="flex:5;background:#E8836B;color:#18282A">5%</span>
+            </div>
+            <p class="nota">El coral es el acento: poco y en el lugar justo. "Papel" es un derivado (9% verde claro + blanco) para fondos amplios.</p>
+          </div>
+          <div>
+            <h3 class="m-h3">Contraste (WCAG 2.2)</h3>
+            <table class="contraste">
+              <thead><tr><th scope="col">Combinación</th><th scope="col">Ratio</th><th scope="col">Uso</th></tr></thead>
+              <tbody>
+                {contrastes.map(([n, r, u, fg, bg]) => (
+                  <tr><td><span class="contraste__mues" style={`color:${fg};background:${bg}`}>Aa</span>{n}</td><td class="mono">{r}</td><td>{u}</td></tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 Tipografía -->
+    <section class="m-sec m-sec--alt" id="m6">
+      <div class="wrap">
+        <div class="m-grid">
+          <div class="m-head"><p class="m-num">06</p><h2>Tipografía</h2><span class="tag tag--prop">Propuesta</span></div>
+          <div class="m-body">
+            <p class="m-lead">La palabra "predir" del logotipo usa una sans geométrica de terminaciones redondas. Para textos digitales proponemos una familia con la misma geometría, pero con más carácter en titulares.</p>
+            <p class="nota"><span class="tag tag--pend">Pendiente</span> Identificar la tipografía exacta del logotipo (se parece a Poppins SemiBold, sin confirmar). El logotipo nunca se reescribe: se usa siempre el archivo.</p>
+          </div>
+        </div>
+        <ul role="list" class="familias">
+          <li><p class="familias__mues" style="font-family:var(--f-display)">Aa</p><b>Bricolage Grotesque</b><span>Titulares · 500 · óptica variable · Google Fonts (OFL)</span></li>
+          <li><p class="familias__mues" style="font-family:var(--f-texto)">Aa</p><b>Geist</b><span>Texto e interfaz · 400 / 500 · Google Fonts (OFL)</span></li>
+          <li><p class="familias__mues" style="font-family:var(--f-mono)">Aa</p><b>Geist Mono</b><span>Etiquetas, datos, código · 500 · Google Fonts (OFL)</span></li>
+        </ul>
+        <h3 class="m-h3">Jerarquía (escritorio / móvil)</h3>
+        <div class="jerarquia">
+          {tipos.map((t) => (
+            <div class="jerarquia__fila">
+              <p class={`jerarquia__ej ${t.cls}`}>{t.ej}</p>
+              <dl>
+                <div><dt>Nivel</dt><dd>{t.nivel}</dd></div>
+                <div><dt>Familia</dt><dd>{t.fam} {t.peso}</dd></div>
+                <div><dt>Tamaño</dt><dd>{t.tam}</dd></div>
+                <div><dt>Interlínea · tracking</dt><dd>{t.lh} · {t.tr}</dd></div>
+              </dl>
+            </div>
+          ))}
+        </div>
+        <p class="nota">Reglas: titulares en peso 500, nunca negrita gruesa; frases en minúscula inicial (no Title Case); líneas de texto de 45 a 70 caracteres; nunca menos de 13 px.</p>
+      </div>
+    </section>
+
+    <!-- 07 Elementos gráficos -->
+    <section class="m-sec" id="m7">
+      <div class="wrap">
+        <div class="m-grid">
+          <div class="m-head"><p class="m-num">07</p><h2>Elementos gráficos</h2><span class="tag tag--prop">Propuesta</span></div>
+          <div class="m-body"><p class="m-lead">Todos salen de la geometría del símbolo. Ninguno es decoración suelta: cada uno tiene un trabajo.</p></div>
+        </div>
+        <ul role="list" class="elementos">
+          <li>
+            <div class="elem elem--osc"><svg viewBox="0 0 120 120" class="elem__anillo" aria-hidden="true"><path d="M60 34 A26 26 0 0 0 60 86" /><path d="M60 86 A26 26 0 0 0 60 34" /></svg></div>
+            <b>Anillo partido</b><span>El aro del símbolo, a gran escala y con trazo fino, como fondo de portadas y héroes.</span>
+          </li>
+          <li>
+            <div class="elem"><span class="elem__trazo"></span><span class="elem__trazo elem__trazo--c"></span></div>
+            <b>Trazo redondeado</b><span>Barras con terminales redondos (proporción 1:3,5 del asta). Pistas de progreso, niveles y separadores de acento.</span>
+          </li>
+          <li>
+            <div class="elem"><span class="label">Etiqueta de sección</span></div>
+            <b>Etiqueta bicolor</b><span>Pastilla verde + coral delante de cada etiqueta de sección: el símbolo reducido a una línea.</span>
+          </li>
+          <li>
+            <div class="elem elem--puntos"></div>
+            <b>Retícula de puntos</b><span>Papel técnico en verde claro al 20%. Solo en fondos oscuros, con máscara que se desvanece.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 08 Iconografía -->
+    <section class="m-sec m-sec--alt" id="m8">
+      <div class="wrap">
+        <div class="m-grid">
+          <div class="m-head"><p class="m-num">08</p><h2>Iconografía</h2><span class="tag tag--prop">Propuesta</span></div>
+          <div class="m-body"><p class="m-lead">Íconos lineales en retícula de 24 × 24, trazo de 2 px, terminales y uniones redondeadas: el mismo lenguaje del símbolo. Un solo color por ícono (verde sobre claro, verde claro sobre oscuro).</p></div>
+        </div>
+        <ul role="list" class="iconos">
+          {iconos.map((n) => <li><Icon name={n} size={28} /><code>{n}</code></li>)}
+        </ul>
+        <p class="nota">Los logotipos de terceros (p. ej. WhatsApp) se usan con su forma oficial, nunca redibujados. El set completo vive en <code>src/components/Icon.astro</code>.</p>
+      </div>
+    </section>
+
+    <!-- 09 Fotografía -->
+    <section class="m-sec" id="m9">
+      <div class="wrap m-grid">
+        <div class="m-head"><p class="m-num">09</p><h2>Estilo fotográfico</h2><span class="tag tag--pend">Pendiente</span></div>
+        <div class="m-body">
+          <p class="m-lead">Todavía no hay fotografías de la marca. Cuando se produzcan, proponemos estas pautas:</p>
+          <ul role="list" class="pautas">
+            <li><Icon name="check" size={20} /><span><b>Personas reales</b> trabajando: los socios, clientes en su negocio (con permiso). Nada de stock con poses de oficina.</span></li>
+            <li><Icon name="check" size={20} /><span><b>Luz natural</b>, tonos cálidos y neutros; que los verdes y el coral de la marca aparezcan en el entorno, no por filtro.</span></li>
+            <li><Icon name="check" size={20} /><span><b>Loja como escenario:</b> locales, bodegas, mostradores, talleres. El "antes" de un proceso es una buena foto.</span></li>
+            <li><Icon name="check" size={20} /><span><b>Retratos de los socios</b> en 4:5, mismo fondo y misma luz para ambos, mirada a cámara, plano medio.</span></li>
+            <li><Icon name="check" size={20} /><span><b>Capturas reales</b> de los sistemas construidos (con datos ficticios o anonimizados) en lugar de ilustraciones.</span></li>
+          </ul>
+          <p class="nota">Formato web: WebP o AVIF, ancho máximo 2400 px, menos de 300 KB por imagen. Ver <code>public/equipo/LEEME.md</code>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 Aplicaciones digitales -->
+    <section class="m-sec m-sec--alt" id="m10">
+      <div class="wrap">
+        <div class="m-grid">
+          <div class="m-head"><p class="m-num">10</p><h2>Aplicaciones digitales</h2></div>
+          <div class="m-body"><p class="m-lead">Piezas ya disponibles en la carpeta de marca y cómo se usan en la web.</p></div>
+        </div>
+        <ul role="list" class="apps">
+          <li><div class="apps__lienzo"><img src="/favicon.svg" width="64" height="64" alt="" /><img src="/favicon-192.png" width="32" height="32" alt="" /><img src="/favicon-192.png" width="16" height="16" alt="" /></div><b>Favicon</b><span>.ico + .svg + PNG 16→512, apple-touch-icon 180 <span class="tag tag--ok">De la marca</span></span></li>
+          <li><div class="apps__lienzo"><img src="/brand/icono-app-verde.svg" width="72" height="72" alt="" style="border-radius:18px" /><img src="/brand/icono-app-verde.svg" width="72" height="72" alt="" style="border-radius:50%" /></div><b>Ícono de app</b><span>iOS, Android (redondo y adaptive con fondo #2F6D5F) <span class="tag tag--ok">De la marca</span></span></li>
+          <li><div class="apps__lienzo apps__lienzo--og"><img src="/og.png" width="240" height="126" alt="Tarjeta para compartir el sitio de Predir" loading="lazy" /></div><b>Tarjeta para compartir</b><span>1200 × 630, para WhatsApp, LinkedIn y redes <span class="tag tag--prop">Propuesta</span></span></li>
+          <li><div class="apps__lienzo"><span class="avatar"><Simbolo variante="blanco" size={44} /></span></div><b>Avatar de redes</b><span>Símbolo blanco sobre verde, círculo <span class="tag tag--prop">Propuesta</span></span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 11 Componentes -->
+    <section class="m-sec" id="m11">
+      <div class="wrap">
+        <div class="m-grid">
+          <div class="m-head"><p class="m-num">11</p><h2>Botones y componentes</h2><span class="tag tag--prop">Propuesta</span></div>
+          <div class="m-body"><p class="m-lead">Una sola familia de botones en forma de píldora (eco de los terminales redondos del símbolo). Un botón primario por bloque.</p></div>
+        </div>
+        <div class="comp">
+          <div class="comp__panel">
+            <p class="comp__t">Sobre claro</p>
+            <div class="comp__fila"><a class="btn btn--primario" href="#m11">Solicitar propuesta <Icon name="arrow" /></a><a class="btn btn--secundario" href="#m11">Ver servicios</a></div>
+          </div>
+          <div class="comp__panel comp__panel--osc on-dark">
+            <p class="comp__t">Sobre oscuro</p>
+            <div class="comp__fila"><a class="btn btn--primario" href="#m11">Solicitar propuesta <Icon name="arrow" /></a><a class="btn btn--secundario" href="#m11">Ver servicios</a></div>
+          </div>
+          <div class="comp__panel">
+            <p class="comp__t">Etiquetas</p>
+            <div class="comp__fila"><span class="label">Servicios</span><span class="chip-demo">Inventario y bodegas</span><span class="provisional">Contenido provisional</span></div>
+          </div>
+          <div class="comp__panel">
+            <p class="comp__t">Campo de formulario</p>
+            <label class="campo-demo"><span>Correo</span><input type="email" placeholder="nombre@negocio.com" /></label>
+          </div>
+        </div>
+        <table class="specs">
+          <thead><tr><th scope="col">Elemento</th><th scope="col">Especificación</th></tr></thead>
+          <tbody>
+            <tr><td>Botón</td><td>Alto 52 px (44 en la cabecera), padding 0 26 px, radio 999 px, Geist 500 16 px. Hover: sube 2 px y la flecha avanza 3 px. Clic: escala 0,98.</td></tr>
+            <tr><td>Radios</td><td>10 · 18 · 28 px (pequeño, medio, tarjeta) y 999 px (píldoras).</td></tr>
+            <tr><td>Tarjeta</td><td>Fondo papel o blanco, borde 1 px tinta al 12%, radio 28 px. Hover si es enlace: sube 2 px.</td></tr>
+            <tr><td>Foco</td><td>Contorno coral de 3 px con 3 px de separación. Siempre visible con teclado.</td></tr>
+            <tr><td>Retícula</td><td>12 columnas, contenedor máximo 1280 px, medianil 24 px (12 en móvil), márgenes 80 / 48 / 24 px.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 12 Movimiento -->
+    <section class="m-sec m-sec--alt" id="m12">
+      <div class="wrap m-grid">
+        <div class="m-head"><p class="m-num">12</p><h2>Movimiento</h2><span class="tag tag--prop">Propuesta</span></div>
+        <div class="m-body">
+          <p class="m-lead">El movimiento explica, no adorna. Un ejemplo: en el sitio, el cuaderno se transforma en sistema una sola vez, porque eso es lo que hace la empresa.</p>
+          <table class="specs">
+            <tbody>
+              <tr><td>Curva</td><td><code>cubic-bezier(0.22, 1, 0.36, 1)</code> para entradas; <code>(0.65, 0, 0.35, 1)</code> para trazos que se dibujan.</td></tr>
+              <tr><td>Duraciones</td><td>160 ms (pulsar), 320 ms (hover), 700 ms (cambio de estado), 900 ms (entrada).</td></tr>
+              <tr><td>Entrada</td><td>Solo el héroe entra al cargar: subida de 18 px + opacidad, escalonado de 90 ms.</td></tr>
+              <tr><td>Momentos</td><td>Uno o dos por página: el cuaderno → sistema y la pista del proceso que se dibuja.</td></tr>
+              <tr><td>Bucles</td><td>Solo en ilustraciones de flujo (pulsos de 3,2 s). Nunca en texto.</td></tr>
+              <tr><td>Prohibido</td><td>Aparecer cada bloque al hacer scroll, parallax en textos, carruseles automáticos, rebotes.</td></tr>
+              <tr><td>Accesibilidad</td><td>Con "reducir movimiento" activado todo queda quieto y visible en su estado final.</td></tr>
+            </tbody>
+          </table>
+          <p class="nota">Video y piezas animadas: se pueden producir con HyperFrames (instalado) o After Effects (pendiente de instalar, ver <code>docs/03-MCP-AFTER-EFFECTS.md</code>).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13 Pendientes -->
+    <section class="m-sec" id="m13">
+      <div class="wrap m-grid">
+        <div class="m-head"><p class="m-num">13</p><h2>Información pendiente</h2></div>
+        <div class="m-body">
+          <ul role="list" class="pend">
+            <li>Logotipo horizontal en vector (SVG o AI).</li>
+            <li>Nombre de la tipografía del logotipo.</li>
+            <li>Significado oficial del símbolo, de sus colores y del nombre.</li>
+            <li>Valores CMYK y Pantone para impresión.</li>
+            <li>Fotografías de los socios y estilo fotográfico aprobado.</li>
+            <li>Validación de la tipografía digital, la personalidad y los elementos gráficos propuestos.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .manual code { font-family: var(--f-mono); font-size: 0.85em; background: color-mix(in oklab, var(--c-menta) 25%, transparent); padding: 1px 6px; border-radius: 6px; }
+
+  /* Portada */
+  .m-portada { position: relative; overflow: hidden; background: var(--c-tinta); color: var(--c-blanco); padding: calc(var(--nav-h) + 72px) 0 96px; }
+  .m-portada__in { display: grid; gap: 28px; }
+  .m-portada h1 { font-size: clamp(4.5rem, 3rem + 9vw, 11rem); letter-spacing: -0.05em; line-height: 0.9; }
+  .m-portada__sub { font-size: var(--t-lead); color: var(--c-texto-osc-suave); max-width: 46ch; }
+  .m-portada__simbolo { position: absolute; width: clamp(140px, 22vw, 300px); aspect-ratio: 1; right: var(--gut); top: calc(var(--nav-h) + 56px); }
+  @media (max-width: 899px) { .m-portada__simbolo { display: none; } }
+  .m-portada__simbolo :global(svg) { width: 100%; height: 100%; }
+  .m-leyenda { display: flex; flex-wrap: wrap; gap: 12px 24px; font-size: var(--t-small); color: var(--c-texto-osc-suave); }
+  .m-leyenda span { display: inline-flex; align-items: center; gap: 8px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .dot--ok { background: var(--c-menta); } .dot--prop { background: var(--c-blanco); } .dot--pend { background: var(--c-coral); }
+  .m-indice ol { display: grid; gap: 0 24px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); margin-top: 24px; }
+  .m-indice a { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--c-linea-osc); background-position: 0 100%; }
+  .m-indice a span { font-family: var(--f-mono); color: var(--c-menta); font-size: 0.8125rem; padding-top: 2px; }
+
+  /* Secciones */
+  .m-sec { padding: clamp(72px, 7vw, 120px) 0; scroll-margin-top: var(--nav-h); }
+  .m-sec--alt { background: var(--c-blanco); }
+  .m-grid { display: grid; gap: 24px 24px; margin-bottom: 48px; }
+  .m-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
+  .m-num { font-family: var(--f-mono); color: var(--c-verde); font-size: 0.875rem; width: 100%; }
+  .m-head h2 { font-size: clamp(2rem, 1.6rem + 1.6vw, 2.75rem); }
+  .m-body { display: grid; gap: 16px; max-width: 70ch; }
+  .m-body > p:not(.m-lead):not(.nota) { color: var(--c-texto-suave); }
+  .m-lead { font-size: var(--t-lead); line-height: 1.5; }
+  .m-h3 { font-size: 1.375rem; margin: 56px 0 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .nota { font-size: var(--t-small); color: var(--c-texto-suave); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
+  @media (min-width: 1024px) {
+    .m-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); }
+    .m-head { grid-column: 1 / span 4; align-self: start; }
+    .m-body { grid-column: 5 / -1; }
+  }
+
+  .tag { font-family: var(--f-mono); font-size: 0.6875rem; font-weight: 500; padding: 3px 9px; border-radius: 999px; white-space: nowrap; letter-spacing: 0.02em; }
+  .tag--ok { background: color-mix(in oklab, var(--c-menta) 55%, var(--c-blanco)); color: var(--c-tinta); }
+  .tag--prop { background: var(--c-blanco); color: var(--c-tinta); border: 1px solid color-mix(in oklab, var(--c-tinta) 25%, transparent); }
+  .tag--pend { background: color-mix(in oklab, var(--c-coral) 25%, var(--c-blanco)); color: var(--c-tinta); }
+
+  .rasgos { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 12px; }
+  .rasgos li { padding: 18px; border-radius: var(--r-m); background: var(--c-papel); display: grid; gap: 6px; }
+  .rasgos b { font-family: var(--f-display); font-weight: 500; font-size: 1.25rem; }
+  .rasgos span { font-size: 0.9375rem; color: var(--c-texto-suave); }
+  .voz { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .voz > div { padding: 18px; border-radius: var(--r-m); border: 1px solid var(--c-linea); }
+  .voz__t { font-family: var(--f-mono); font-size: 0.75rem; color: var(--c-verde); margin-bottom: 6px; }
+  .voz__t--no { color: color-mix(in oklab, var(--c-coral) 55%, var(--c-tinta)); }
+
+  /* Lienzos */
+  .lienzo { border-radius: var(--r-l); padding: 56px 32px 20px; display: grid; justify-items: center; gap: 40px; border: 1px solid var(--c-linea); }
+  .lienzo--claro { background: var(--c-blanco); }
+  .m-sec--alt .lienzo--claro { background: var(--c-papel); }
+  .lienzo--osc { background: var(--c-tinta); border-color: transparent; }
+  .lienzo figcaption { font-size: var(--t-small); color: var(--c-texto-suave); justify-self: stretch; text-align: left; }
+  .lienzo--osc figcaption { color: var(--c-texto-osc-suave); }
+  .logo-pares { display: grid; gap: var(--col-gap); }
+  @media (min-width: 900px) { .logo-pares { grid-template-columns: 1fr 1fr; } }
+
+  .anatomia { display: grid; gap: var(--col-gap); align-items: center; }
+  .anatomia__dib { position: relative; width: min(320px, 70vw); aspect-ratio: 1; }
+  .anatomia__dib :global(svg) { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .anatomia__guias { z-index: 1; fill: none; stroke: var(--c-coral); stroke-width: 0.35; stroke-dasharray: 1.5 1.5; }
+  .medidas { display: grid; gap: 0; }
+  .medidas > div { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--c-linea); }
+  .medidas dt { font-family: var(--f-mono); font-size: 0.8125rem; color: var(--c-verde); padding-top: 2px; }
+  @media (min-width: 900px) { .anatomia { grid-template-columns: 1fr 1fr; } }
+
+  .variantes { display: grid; gap: var(--col-gap); grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+  .variantes li { display: grid; gap: 8px; font-size: var(--t-small); }
+  .variantes__lienzo { aspect-ratio: 1; border-radius: var(--r-m); display: grid; place-items: center; border: 1px solid var(--c-linea); }
+  .variantes code { justify-self: start; font-size: 0.75rem; }
+
+  .m-cols { display: grid; gap: 24px 48px; }
+  @media (min-width: 900px) { .m-cols { grid-template-columns: 1fr 1fr; } }
+  .proteccion__caja { padding: 28px; outline: 1.5px dashed var(--c-coral); outline-offset: 0; background: repeating-linear-gradient(135deg, transparent 0 8px, color-mix(in oklab, var(--c-coral) 12%, transparent) 8px 9px); }
+  .proteccion__caja :global(picture) { display: block; background: var(--c-blanco); }
+  .minimos { display: grid; gap: 16px; }
+  .minimos > div { display: flex; align-items: center; gap: 20px; padding: 20px; border-radius: var(--r-m); background: var(--c-blanco); border: 1px solid var(--c-linea); }
+  .minimos p { font-size: var(--t-small); color: var(--c-texto-suave); }
+
+  /* Incorrectos */
+  .mal { display: grid; gap: var(--col-gap); grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+  .mal li { display: grid; gap: 10px; font-size: var(--t-small); font-weight: 500; }
+  .mal__lienzo { position: relative; aspect-ratio: 1; border-radius: var(--r-m); background: var(--c-papel); display: grid; place-items: center; border: 1px solid var(--c-linea); }
+  .mal__x { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--c-coral); color: var(--c-tinta); }
+
+  /* Color */
+  .paleta { display: grid; gap: var(--col-gap); grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+  .color { display: grid; gap: 14px; align-content: start; }
+  .color__mues { aspect-ratio: 4 / 3; border-radius: var(--r-l); padding: 20px; display: flex; flex-direction: column; justify-content: space-between; font-family: var(--f-display); font-size: 1.375rem; }
+  .color__copiar { align-self: flex-start; font-family: var(--f-mono); font-size: 0.875rem; border: 1px solid currentColor; background: transparent; color: inherit; border-radius: 999px; padding: 8px 14px; min-height: 40px; cursor: pointer; transition: transform var(--dur-1); }
+  .color__copiar:hover { transform: translateY(-2px); }
+  .color dl { display: grid; }
+  .color dl > div { display: grid; grid-template-columns: 56px 1fr; padding: 8px 0; border-bottom: 1px solid var(--c-linea); font-size: 0.9375rem; }
+  .color dt { font-family: var(--f-mono); font-size: 0.75rem; color: var(--c-texto-suave); padding-top: 3px; }
+  .color dd { font-family: var(--f-mono); font-size: 0.875rem; }
+  .color > p { font-size: var(--t-small); color: var(--c-texto-suave); }
+  .proporcion { display: flex; height: 120px; border-radius: var(--r-m); overflow: hidden; border: 1px solid var(--c-linea); }
+  .proporcion span { display: flex; align-items: flex-end; padding: 10px; font-family: var(--f-mono); font-size: 0.75rem; color: var(--c-blanco); min-width: 0; }
+  .contraste, .specs { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+  .contraste th, .specs th { text-align: left; font-family: var(--f-mono); font-weight: 500; font-size: 0.75rem; color: var(--c-texto-suave); padding: 0 8px 10px 0; }
+  .contraste td, .specs td { padding: 10px 8px 10px 0; border-top: 1px solid var(--c-linea); vertical-align: top; }
+  .specs td:first-child { font-weight: 500; width: 140px; }
+  .contraste__mues { display: inline-grid; place-items: center; width: 32px; height: 26px; border-radius: 6px; margin-right: 10px; font-weight: 500; font-size: 0.8125rem; border: 1px solid var(--c-linea); vertical-align: middle; }
+  .mono { font-family: var(--f-mono); font-size: 0.875rem; white-space: nowrap; }
+  .comp + .specs { margin-top: 32px; }
+
+  /* Tipografía */
+  .familias { display: grid; gap: var(--col-gap); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .familias li { padding: 24px; border-radius: var(--r-l); background: var(--c-papel); display: grid; gap: 6px; }
+  .familias__mues { font-size: 5rem; line-height: 1; letter-spacing: -0.03em; margin-bottom: 12px; }
+  .familias span { font-size: var(--t-small); color: var(--c-texto-suave); }
+  .jerarquia__fila { display: grid; gap: 12px; padding: 24px 0; border-top: 1px solid var(--c-linea); }
+  .jerarquia__fila dl { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 16px; font-size: var(--t-small); }
+  .jerarquia__fila dt { font-family: var(--f-mono); font-size: 0.6875rem; color: var(--c-texto-suave); }
+  @media (min-width: 1024px) {
+    .jerarquia__fila { grid-template-columns: 7fr 5fr; align-items: center; }
+    .jerarquia__fila dl { grid-template-columns: repeat(4, auto); }
+  }
+  .t-h1 { font-family: var(--f-display); font-weight: 500; font-size: var(--t-hero); line-height: 1; letter-spacing: -0.035em; }
+  .t-h2 { font-family: var(--f-display); font-weight: 500; font-size: var(--t-h2); line-height: 1.04; letter-spacing: -0.025em; }
+  .t-h3 { font-family: var(--f-display); font-weight: 500; font-size: var(--t-h3); letter-spacing: -0.015em; }
+  .t-lead { font-size: var(--t-lead); }
+  .t-mono { font-family: var(--f-mono); font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.02em; color: var(--c-verde); }
+
+  /* Elementos */
+  .elementos, .apps { display: grid; gap: var(--col-gap); grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+  .elementos li, .apps li { display: grid; gap: 8px; align-content: start; }
+  .elementos span, .apps span { font-size: var(--t-small); color: var(--c-texto-suave); }
+  .elementos b, .apps b { font-weight: 500; margin-top: 6px; }
+  .elem { aspect-ratio: 4 / 3; border-radius: var(--r-l); background: var(--c-papel-2); display: grid; place-items: center; align-content: center; gap: 14px; overflow: hidden; }
+  .elem--osc { background: var(--c-tinta); }
+  .elem__anillo { width: 140%; fill: none; stroke-width: 0.8; }
+  .elem__anillo path:first-child { stroke: var(--c-menta); } .elem__anillo path:last-child { stroke: var(--c-coral); }
+  .elem__trazo { width: 70%; height: 14px; border-radius: 7px; background: var(--c-verde); }
+  .elem__trazo--c { width: 40%; background: var(--c-coral); justify-self: start; margin-left: 15%; }
+  .elem--puntos { background-color: var(--c-tinta); background-image: radial-gradient(color-mix(in oklab, var(--c-menta) 30%, transparent) 1px, transparent 1.4px); background-size: 18px 18px; }
+
+  .iconos { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+  .iconos li { display: grid; justify-items: center; gap: 10px; padding: 20px 8px 14px; border-radius: var(--r-m); background: var(--c-papel); color: var(--c-verde); }
+  .iconos code { font-size: 0.6875rem; color: var(--c-texto-suave); background: none !important; }
+
+  .pautas { display: grid; gap: 14px; }
+  .pautas li { display: grid; grid-template-columns: 20px 1fr; gap: 12px; color: var(--c-texto-suave); }
+  .pautas :global(svg) { color: var(--c-verde); margin-top: 3px; }
+  .pautas b { color: var(--c-tinta); font-weight: 500; }
+
+  .apps__lienzo { aspect-ratio: 4 / 3; border-radius: var(--r-l); background: var(--c-papel); display: flex; align-items: center; justify-content: center; gap: 16px; border: 1px solid var(--c-linea); }
+  .apps__lienzo--og img { border-radius: 8px; box-shadow: 0 10px 30px -14px rgb(0 0 0 / 0.4); }
+  .avatar { width: 88px; height: 88px; border-radius: 50%; background: var(--c-verde); display: grid; place-items: center; }
+
+  .comp { display: grid; gap: var(--col-gap); grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .comp__panel { padding: 28px; border-radius: var(--r-l); background: var(--c-papel); display: grid; gap: 18px; align-content: start; }
+  .comp__panel--osc { background: var(--c-tinta); color: var(--c-blanco); }
+  .comp__t { font-family: var(--f-mono); font-size: 0.75rem; color: var(--c-texto-suave); }
+  .comp__panel--osc .comp__t { color: var(--c-texto-osc-suave); }
+  .comp__fila { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .chip-demo { font-size: 0.8125rem; padding: 6px 12px; border-radius: 999px; background: var(--c-blanco); border: 1px solid var(--c-linea); }
+  .campo-demo { display: grid; gap: 8px; font-weight: 500; font-size: 0.9375rem; }
+  .campo-demo input { min-height: 52px; padding: 14px 16px; border-radius: 14px; border: 1.5px solid color-mix(in oklab, var(--c-tinta) 18%, transparent); background: var(--c-blanco); font-weight: 400; }
+  .campo-demo input:focus-visible { outline: none; border-color: var(--c-verde); box-shadow: 0 0 0 4px color-mix(in oklab, var(--c-menta) 55%, transparent); }
+
+  .pend { display: grid; gap: 10px; }
+  .pend li { padding: 14px 18px; border-radius: var(--r-m); background: color-mix(in oklab, var(--c-coral) 12%, var(--c-blanco)); border-left: 4px solid var(--c-coral); }
+
+  @media print {
+    :global(.nav), :global(.pie), :global(.skip) { display: none !important; }
+    .m-sec { break-inside: avoid-page; padding: 32px 0; }
+    .m-portada { padding-top: 48px; }
+    .color__copiar { border: 0; padding: 0; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copiar]').forEach((b) => {
+    const original = b.textContent;
+    b.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(b.dataset.copiar!);
+        b.textContent = 'Copiado';
+        setTimeout(() => (b.textContent = original), 1400);
+      } catch { /* sin portapapeles: no hacer nada */ }
+    });
+  });
+</script>

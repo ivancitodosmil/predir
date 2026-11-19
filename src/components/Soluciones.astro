@@ -1,0 +1,195 @@
+---
+import Icon from './Icon.astro';
+import Imagen from './Imagen.astro';
+import { problemas } from '../data/contenido';
+---
+<section class="section sol-seccion" id="soluciones" aria-labelledby="sol-titulo">
+  <!-- Banda de apertura en verde claro, con la ilustración integrada al fondo -->
+  <div class="sol-banda">
+    <div class="wrap sol-intro">
+      <header class="sol-intro__txt">
+        <p class="label">Soluciones</p>
+        <h2 id="sol-titulo">Menos procesos manuales. Más control.</h2>
+        <p class="sol-intro__lead">Automatizamos tus flujos operativos para que recuperes horas de trabajo cada semana y tomes decisiones con datos en tiempo real.</p>
+        <a href="#contacto" class="link sol-intro__cta">Cuéntanos tu caso <Icon name="arrow" size={18} /></a>
+        <button type="button" class="btn btn--primario" data-abrir-agenda>Agendar diagnóstico <Icon name="arrow" /></button>
+      </header>
+      <figure class="sol-intro__img">
+        <Imagen nombre="soluciones-isometrica" sizes="(min-width: 1024px) 55vw, 100vw" />
+        <!-- Motion graphic: capa SVG alineada con la ilustración (mismo lienzo 1536×1024) -->
+        <svg class="sol-motion" viewBox="0 0 1536 1024" aria-hidden="true" data-sol-motion>
+          <defs>
+            <clipPath id="sol-pantalla"><path d="M1092 214 L1380 352 L1376 586 L1080 470 Z" /></clipPath>
+            <linearGradient id="sol-brillo" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0" stop-color="#fff" stop-opacity="0" />
+              <stop offset=".5" stop-color="#fff" stop-opacity=".55" />
+              <stop offset="1" stop-color="#fff" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+
+          <!-- Onda en el papel: "capturando datos" -->
+          <g class="m-solo">
+            <circle cx="770" cy="410" r="14" fill="none" stroke="#2F6D5F" stroke-width="3">
+              <animate attributeName="r" values="14;58" dur="2.4s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values=".7;0" dur="2.4s" repeatCount="indefinite" />
+            </circle>
+          </g>
+
+          <!-- Línea de datos que fluye del papel a la pantalla -->
+          <path id="sol-ruta" d="M800 392 C880 320, 965 250, 1092 296" fill="none" stroke="#2F6D5F" stroke-width="5" stroke-linecap="round" stroke-dasharray="3 18" opacity=".6">
+            <animate attributeName="stroke-dashoffset" values="0;-160" dur="2.4s" repeatCount="indefinite" />
+          </path>
+
+          <!-- Paquetes de datos -->
+          <g class="m-solo">
+            <rect x="-17" y="-17" width="34" height="34" rx="6" fill="#2F6D5F"><animateMotion dur="3.2s" repeatCount="indefinite" rotate="auto" begin="0s"><mpath href="#sol-ruta" /></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.85;1" dur="3.2s" repeatCount="indefinite" begin="0s" /></rect>
+            <rect x="-13" y="-13" width="26" height="26" rx="5" fill="#E8836B"><animateMotion dur="3.2s" repeatCount="indefinite" rotate="auto" begin="-0.8s"><mpath href="#sol-ruta" /></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.85;1" dur="3.2s" repeatCount="indefinite" begin="-0.8s" /></rect>
+            <rect x="-15" y="-15" width="30" height="30" rx="6" fill="#9FD3C5"><animateMotion dur="3.2s" repeatCount="indefinite" rotate="auto" begin="-1.6s"><mpath href="#sol-ruta" /></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.85;1" dur="3.2s" repeatCount="indefinite" begin="-1.6s" /></rect>
+            <rect x="-13" y="-13" width="26" height="26" rx="5" fill="#2F6D5F"><animateMotion dur="3.2s" repeatCount="indefinite" rotate="auto" begin="-2.4s"><mpath href="#sol-ruta" /></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.85;1" dur="3.2s" repeatCount="indefinite" begin="-2.4s" /></rect>
+          </g>
+
+          <!-- Brillo que recorre la pantalla: el sistema "se actualiza" -->
+          <g clip-path="url(#sol-pantalla)" class="m-solo">
+            <rect x="900" y="150" width="160" height="520" fill="url(#sol-brillo)" transform="skewX(-18)">
+              <animateTransform attributeName="transform" type="translate" values="0 0; 520 0; 520 0" keyTimes="0;.45;1" dur="4s" repeatCount="indefinite" additive="sum" />
+            </rect>
+          </g>
+
+          <!-- Check de confirmación cada vez que llegan datos -->
+          <g transform="translate(1372 322)" class="m-solo">
+            <g>
+              <circle r="54" fill="#2F6D5F" stroke="#fff" stroke-width="7" />
+              <path d="M-22 2 L-7 17 L23 -15" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+              <animateTransform attributeName="transform" type="scale" values="0;0;1.15;1;1;0" keyTimes="0;.55;.65;.72;.92;1" dur="3.2s" repeatCount="indefinite" />
+            </g>
+          </g>
+        </svg>
+        <span class="chip chip--hoy" aria-hidden="true"><i></i>Hoy: papel y Excel</span>
+        <span class="chip chip--manana" aria-hidden="true"><i></i>Mañana: un sistema</span>
+      </figure>
+    </div>
+  </div>
+
+  <div class="wrap" id="problemas">
+
+    <ol role="list" class="sol">
+      <li class="sol__cab" aria-hidden="true">
+        <span></span><span>Hoy</span><span></span><span>Con un sistema</span>
+      </li>
+      {problemas.map((p, i) => (
+        <li class="sol__fila">
+          <span class="sol__ico"><Icon name={p.icono} /></span>
+          <div class="sol__hoy">
+            <h3>{p.hoy}</h3>
+            <p>{p.detalle}</p>
+          </div>
+          <span class="sol__flecha" aria-hidden="true"><Icon name="arrow" /></span>
+          <p class="sol__con"><span class="sr-only">Con un sistema: </span>{p.con}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  /* ——— Banda de apertura ——— */
+  .sol-seccion { padding-top: 0; }
+  /* #DAEBE5 = el fondo exacto de la ilustración (verde claro de marca mezclado con blanco) */
+  .sol-banda { --sol-fondo: #daebe5; background: var(--sol-fondo); padding: clamp(48px, 4vw, 72px) 0 clamp(32px, 3vw, 48px); margin-bottom: clamp(28px, 3vw, 44px); overflow: hidden; }
+  .sol-intro { display: grid; gap: 32px; align-items: center; }
+  .sol-intro__txt { display: grid; gap: 22px; justify-items: start; }
+  .sol-intro__txt .label { background: color-mix(in oklab, var(--c-blanco) 55%, transparent); padding: 6px 12px; border-radius: var(--r-pill); }
+  .sol-intro__lead { font-size: var(--t-lead); line-height: 1.5; color: var(--c-tinta); max-width: 34ch; }
+  .sol-intro__cta { display: inline-flex; align-items: center; gap: 8px; color: var(--c-verde); padding-block: 6px; font-size: 1.0625rem; }
+  .sol-intro__img { position: relative; margin: 0; }
+  .sol-intro__img :global(img) { width: 100%; height: auto; mix-blend-mode: multiply; }
+  .sol-motion { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .sol-intro__img { animation: sol-flota 7s var(--ease-in-out) infinite alternate; }
+  }
+  @keyframes sol-flota { to { transform: translateY(-8px); } }
+  @media (prefers-reduced-motion: reduce) { .sol-motion .m-solo { display: none; } }
+
+  /* Chips de vidrio sobre la ilustración */
+  .chip {
+    position: absolute; display: inline-flex; align-items: center; gap: 12px;
+    padding: 14px 20px; border-radius: 16px;
+    background: color-mix(in oklab, var(--c-blanco) 62%, transparent);
+    backdrop-filter: blur(12px) saturate(1.2); -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    border: 1px solid color-mix(in oklab, var(--c-blanco) 80%, transparent);
+    box-shadow: 0 18px 40px -22px color-mix(in oklab, var(--c-verde) 70%, transparent);
+    font-size: clamp(0.875rem, 0.8rem + 0.3vw, 1.0625rem); color: var(--c-tinta); white-space: nowrap;
+  }
+  .chip i { width: 14px; height: 14px; border-radius: 50%; flex: none; }
+  .chip--hoy { left: 2%; top: 14%; }
+  .chip--hoy i { background: var(--c-coral); box-shadow: 0 0 0 5px color-mix(in oklab, var(--c-coral) 25%, transparent); }
+  .chip--manana { right: 4%; bottom: 22%; }
+  .chip--manana i { background: var(--c-verde); box-shadow: 0 0 0 5px color-mix(in oklab, var(--c-verde) 20%, transparent); }
+  @media (prefers-reduced-motion: no-preference) {
+    .chip--hoy { animation: chip-flota 5s var(--ease-in-out) infinite alternate; }
+    .chip--manana { animation: chip-flota 5s var(--ease-in-out) 1.2s infinite alternate; }
+    .chip--hoy i { animation: chip-pulso 2.4s ease-in-out infinite; }
+  }
+  @keyframes chip-flota { to { transform: translateY(-8px); } }
+  @keyframes chip-pulso { 50% { box-shadow: 0 0 0 9px color-mix(in oklab, var(--c-coral) 0%, transparent); } }
+
+  @media (min-width: 1024px) {
+    .sol-intro { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); }
+    .sol-intro__txt { grid-column: 1 / span 5; }
+    .sol-intro__img { grid-column: 6 / -1; margin-right: -4%; }
+  }
+  @media (max-width: 639px) {
+    .sol-intro__txt .btn { width: 100%; }
+    .chip { padding: 10px 14px; }
+    .chip--hoy { top: 4%; }
+    .chip--manana { bottom: 8%; }
+  }
+
+  .sol { display: grid; }
+  .sol__cab { display: none; }
+  .sol__fila {
+    display: grid; gap: 16px 20px;
+    grid-template-columns: 48px 1fr;
+    padding: 28px 0;
+    border-top: 1px solid var(--c-linea);
+    position: relative;
+  }
+  .sol__fila:last-child { border-bottom: 1px solid var(--c-linea); }
+  .sol__ico {
+    width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center;
+    background: var(--c-blanco); color: var(--c-verde); border: 1px solid var(--c-linea);
+    transition: background-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+  }
+  .sol__hoy h3 { font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem); margin-bottom: 8px; }
+  .sol__hoy p { color: var(--c-texto-suave); max-width: 46ch; }
+  .sol__flecha { display: none; color: var(--c-coral); transition: transform var(--dur-2) var(--ease-out); }
+  .sol__con {
+    grid-column: 2; font-weight: 500; color: var(--c-verde);
+    padding-left: 16px; border-left: 3px solid var(--c-menta); border-radius: 2px;
+  }
+
+  @media (min-width: 1024px) {
+    .sol__cab, .sol__fila { grid-template-columns: 64px minmax(0, 6fr) 64px minmax(0, 4fr); column-gap: var(--col-gap); }
+    .sol__cab {
+      display: grid; padding-bottom: 16px;
+      font-family: var(--f-mono); font-size: var(--t-label); color: var(--c-texto-suave);
+    }
+    .sol__fila { align-items: center; padding: 32px 0; }
+    .sol__flecha { display: block; justify-self: center; }
+    .sol__con { grid-column: auto; font-size: 1.0625rem; line-height: 1.5; }
+    .sol__fila::before {
+      content: ''; position: absolute; inset: 0 calc(var(--col-gap) * -1); z-index: -1;
+      background: var(--c-blanco); border-radius: var(--r-m);
+      opacity: 0; transition: opacity var(--dur-2) var(--ease-out);
+    }
+    .sol__fila:hover::before { opacity: 1; }
+    .sol__fila:hover .sol__ico { background: var(--c-verde); color: var(--c-blanco); border-color: transparent; }
+    .sol__fila:hover .sol__flecha { transform: translateX(6px); }
+  }
+</style>
+
+<script>
+  // Con "reducir movimiento" se congelan las animaciones SVG (SMIL no responde a CSS).
+  const capa = document.querySelector<SVGSVGElement>('[data-sol-motion]');
+  if (capa && window.matchMedia('(prefers-reduced-motion: reduce)').matches) capa.pauseAnimations();
+</script>

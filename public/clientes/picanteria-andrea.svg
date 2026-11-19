@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 240" role="img" aria-label="Picantería Andrea">
+  <rect width="480" height="240" fill="#FBF1E3"/>
+  <rect x="14" y="14" width="452" height="212" rx="14" fill="none" stroke="#C0392B" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round"/>
+  <!-- ají -->
+  <g transform="translate(70 120) rotate(-28)">
+    <path d="M-6 -40 C-2 -50 8 -54 14 -48" fill="none" stroke="#2E7D32" stroke-width="7" stroke-linecap="round"/>
+    <path d="M-14 -36 C-26 -36 -30 -20 -26 0 C-20 30 -4 52 10 60 C16 63 20 58 18 50 C12 24 14 -2 8 -24 C6 -34 -2 -37 -14 -36 Z" fill="#D7372A"/>
+    <path d="M-16 -22 C-18 -6 -14 14 -6 32" fill="none" stroke="#F28B6E" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <text x="270" y="102" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="26" letter-spacing="9" fill="#7A2318">PICANTERÍA</text>
+  <text x="270" y="168" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-weight="700" font-size="66" fill="#C0392B">Andrea</text>
+  <path d="M168 190 H372" stroke="#E2A23B" stroke-width="3" stroke-linecap="round"/>
+  <text x="270" y="212" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" letter-spacing="5" fill="#7A2318">COMIDA TÍPICA LOJANA</text>
+</svg>

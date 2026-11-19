@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 240" role="img" aria-label="Boutique Cariñosas">
+  <rect width="480" height="240" fill="#F7E3E8"/>
+  <!-- gancho de ropa con corazón -->
+  <g transform="translate(240 62)" fill="none" stroke="#7D2E4F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M0 -26 C0 -36 12 -36 12 -27 C12 -20 0 -18 0 -10 V-4"/>
+    <path d="M0 -4 L-46 22 H46 Z"/>
+  </g>
+  <path d="M240 74 C232 64 220 70 226 80 L240 92 L254 80 C260 70 248 64 240 74 Z" fill="#D9627E" transform="translate(0 -4)"/>
+  <text x="240" y="150" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="58" fill="#7D2E4F">Cariñosas</text>
+  <path d="M150 168 H210 M270 168 H330" stroke="#D9627E" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="240" cy="168" r="4" fill="#D9627E"/>
+  <text x="240" y="200" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" letter-spacing="10" fill="#7D2E4F">BOUTIQUE</text>
+</svg>

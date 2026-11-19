@@ -1,0 +1,66 @@
+/* ==========================================================================
+   Predir · Tokens de diseño
+   Fuente de verdad de color: docs/LEEME-marca-original.txt (carpeta Predir-Logo).
+   Colores corporativos: SOLO los cuatro de la marca + blanco.
+   Los neutros y transparencias se DERIVAN de ellos con color-mix(), nunca se inventan.
+   ========================================================================== */
+
+:root {
+  /* — Corporativos (no modificar) — */
+  --c-verde: #2f6d5f;   /* rgb(47 109 95)   · primario */
+  --c-coral: #e8836b;   /* rgb(232 131 107) · acento */
+  --c-menta: #9fd3c5;   /* rgb(159 211 197) · verde claro / fondos oscuros */
+  --c-tinta: #18282a;   /* rgb(24 40 42)    · texto y fondos oscuros */
+  --c-blanco: #ffffff;
+
+  /* — Derivados (mezclas de corporativos) — */
+  --c-papel: color-mix(in oklab, var(--c-menta) 9%, var(--c-blanco));   /* fondo claro principal */
+  --c-papel-2: color-mix(in oklab, var(--c-menta) 18%, var(--c-blanco)); /* superficie alterna */
+  --c-tinta-2: color-mix(in oklab, var(--c-tinta) 88%, var(--c-verde));  /* superficie oscura elevada */
+  --c-tinta-3: color-mix(in oklab, var(--c-tinta) 76%, var(--c-verde));
+  --c-texto-suave: color-mix(in oklab, var(--c-tinta) 80%, var(--c-blanco)); /* ≥ 7:1 sobre papel (AAA) */
+  --c-linea: color-mix(in oklab, var(--c-tinta) 12%, transparent);
+  --c-linea-osc: color-mix(in oklab, var(--c-menta) 16%, transparent);
+  --c-texto-osc-suave: color-mix(in oklab, var(--c-blanco) 72%, var(--c-tinta));
+
+  /* — Tipografía — */
+  --f-display: 'Bricolage Grotesque Variable', 'Segoe UI', system-ui, sans-serif;
+  --f-texto: 'Geist Variable', 'Segoe UI', system-ui, sans-serif;
+  --f-mono: 'Geist Mono Variable', ui-monospace, 'Cascadia Mono', monospace;
+
+  /* Escala fluida 390 → 1440 */
+  --t-hero: clamp(2.5rem, 1.55rem + 3.9vw, 4.75rem);   /* 40 → 76 */
+  --t-h2: clamp(2rem, 1.45rem + 2.2vw, 3.25rem);       /* 32 → 52 */
+  --t-h3: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem);    /* 22 → 28 */
+  --t-lead: clamp(1.125rem, 1.07rem + 0.25vw, 1.3125rem); /* 18 → 21 */
+  --t-body: 1rem;
+  --t-small: 0.875rem;
+  --t-label: 0.8125rem;
+
+  /* — Espacio y retícula — */
+  --gut: 24px;
+  --wrap: min(100% - 2 * var(--gut), 1280px);
+  --col-gap: 12px;
+  --pad-y: clamp(48px, 2.5vw + 32px, 80px);
+  --nav-h: 72px;
+
+  /* — Forma — (derivada de los trazos del símbolo: terminales redondeados) */
+  --r-s: 10px;
+  --r-m: 18px;
+  --r-l: 28px;
+  --r-pill: 999px;
+
+  /* — Movimiento — */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-1: 160ms;
+  --dur-2: 320ms;
+  --dur-3: 700ms;
+}
+
+@media (min-width: 640px) {
+  :root { --gut: 48px; --col-gap: 24px; }
+}
+@media (min-width: 1200px) {
+  :root { --gut: 80px; }
+}
