@@ -37,3 +37,11 @@ Nada de esto se inventó. En el sitio, cada hueco se ve marcado con una etiqueta
 ## Herramientas
 
 - [ ] Instalar **After Effects** y completar la integración MCP (`docs/03-MCP-AFTER-EFFECTS.md`).
+
+## Google (19/11/2026)
+
+- [x] **Dominio**: www.predirsoft.com (comprado en Vercel, renovación automática).
+- [x] **Google Search Console**: propiedad `https://www.predirsoft.com/` verificada con la cuenta contacto.predir@gmail.com mediante el archivo `public/google15947f97a41da045.html`. **No borrar ese archivo**: si desaparece, se pierde la verificación.
+- [x] Sitemap enviado (`sitemap.xml`) e indexación de la página principal solicitada.
+- [ ] **Perfil de Empresa de Google** (Google Maps) con ubicación en Loja.
+- [ ] **Web3Forms**: cambiar la URL del sitio de `localhost` a `www.predirsoft.com`.
