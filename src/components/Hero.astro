@@ -107,7 +107,7 @@ const beneficios = ['Inventario y ventas al día', 'Tareas que se hacen solas', 
   /* ——— Texto ——— */
   .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 64px; align-items: center; width: var(--wrap); position: relative; z-index: 1; }
   .hero__texto { display: grid; gap: 26px; justify-items: start; }
-  h1 { font-size: var(--t-hero); line-height: 1.0; letter-spacing: -0.035em; max-width: 13ch; }
+  h1 { font-size: clamp(2.25rem, 1.35rem + 3.3vw, 4rem); font-weight: 600; line-height: 1.1; letter-spacing: -0.025em; max-width: 17ch; }
   .h-coral { color: var(--c-coral); }
   .h-menta { color: var(--c-menta); }
   .hero__lead { font-size: var(--t-lead); line-height: 1.5; color: var(--c-texto-osc-suave); max-width: 40ch; }

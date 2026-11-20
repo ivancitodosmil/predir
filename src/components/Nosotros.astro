@@ -101,7 +101,7 @@ const iniciales = (n: string) => n.split(' ').map((p) => p[0]).join('');
   .socio__foto img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--ease-out); }
   .socio:hover .socio__foto img { transform: scale(1.025); }
   .socio__hueco { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 16px; }
-  .socio__ini { font-family: var(--f-display); font-size: clamp(4.5rem, 10vw, 7.5rem); letter-spacing: -0.04em; line-height: 1; color: color-mix(in oklab, var(--c-tinta) 18%, transparent); }
+  .socio__ini { font-family: var(--f-display); font-size: clamp(4.5rem, 10vw, 7.5rem); letter-spacing: -0.03em; line-height: 1; color: color-mix(in oklab, var(--c-tinta) 18%, transparent); }
   /* La mitad del símbolo que corresponde a cada socio: la "p" (verde) y la "d" (coral) */
   .socio__mitad { position: absolute; z-index: 0; width: 92%; height: auto; bottom: -6%; pointer-events: none; transition: transform 900ms var(--ease-out); }
   .socio--verde .socio__mitad { left: -30%; color: color-mix(in oklab, var(--c-verde) 22%, transparent); }

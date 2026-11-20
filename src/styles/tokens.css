@@ -24,7 +24,7 @@
   --c-texto-osc-suave: color-mix(in oklab, var(--c-blanco) 72%, var(--c-tinta));
 
   /* — Tipografía — */
-  --f-display: 'Bricolage Grotesque Variable', 'Segoe UI', system-ui, sans-serif;
+  --f-display: 'Poppins', 'Segoe UI', system-ui, sans-serif; /* misma familia que el logotipo "predir" */
   --f-texto: 'Geist Variable', 'Segoe UI', system-ui, sans-serif;
   --f-mono: 'Geist Mono Variable', ui-monospace, 'Cascadia Mono', monospace;
 

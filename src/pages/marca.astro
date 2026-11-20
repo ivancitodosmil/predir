@@ -47,9 +47,9 @@ const incorrectos = [
 const iconos = ['box', 'folders', 'chart', 'repeat', 'device', 'pen', 'code', 'compass', 'mail', 'pin', 'clock', 'check', 'arrow', 'plus', 'image', 'user'];
 
 const tipos = [
-  { nivel: 'Display / H1', fam: 'Bricolage Grotesque', peso: '500', tam: '76 / 40 px', lh: '1,0', tr: '−3,5 %', ej: 'Lo manual, digital', cls: 't-h1' },
-  { nivel: 'H2 · Sección', fam: 'Bricolage Grotesque', peso: '500', tam: '52 / 32 px', lh: '1,04', tr: '−2,5 %', ej: 'Cómo trabajamos', cls: 't-h2' },
-  { nivel: 'H3 · Tarjeta', fam: 'Bricolage Grotesque', peso: '500', tam: '28 / 22 px', lh: '1,15', tr: '−1,5 %', ej: 'Sistemas de gestión', cls: 't-h3' },
+  { nivel: 'Display / H1', fam: 'Poppins', peso: '600', tam: '76 / 40 px', lh: '1,08', tr: '−2,5 %', ej: 'Lo manual, digital', cls: 't-h1' },
+  { nivel: 'H2 · Sección', fam: 'Poppins', peso: '500', tam: '52 / 32 px', lh: '1,1', tr: '−2 %', ej: 'Cómo trabajamos', cls: 't-h2' },
+  { nivel: 'H3 · Tarjeta', fam: 'Poppins', peso: '500', tam: '28 / 22 px', lh: '1,15', tr: '−1,5 %', ej: 'Sistemas de gestión', cls: 't-h3' },
   { nivel: 'Entradilla', fam: 'Geist', peso: '400', tam: '21 / 18 px', lh: '1,55', tr: '0', ej: 'Convertimos procesos manuales en sistemas.', cls: 't-lead' },
   { nivel: 'Texto', fam: 'Geist', peso: '400', tam: '16 px', lh: '1,625', tr: '0', ej: 'Visitamos tu negocio y vemos cómo se trabaja hoy.', cls: 't-body' },
   { nivel: 'Etiqueta técnica', fam: 'Geist Mono', peso: '500', tam: '13 px', lh: '1,4', tr: '+2 %', ej: '01 · Ordenar', cls: 't-mono' },
@@ -268,11 +268,11 @@ const tipos = [
           <div class="m-head"><p class="m-num">06</p><h2>Tipografía</h2><span class="tag tag--prop">Propuesta</span></div>
           <div class="m-body">
             <p class="m-lead">La palabra "predir" del logotipo usa una sans geométrica de terminaciones redondas. Para textos digitales proponemos una familia con la misma geometría, pero con más carácter en titulares.</p>
-            <p class="nota"><span class="tag tag--pend">Pendiente</span> Identificar la tipografía exacta del logotipo (se parece a Poppins SemiBold, sin confirmar). El logotipo nunca se reescribe: se usa siempre el archivo.</p>
+            <p class="nota">Los títulos usan Poppins, la misma familia geométrica del logotipo. El logotipo nunca se reescribe: se usa siempre el archivo.</p>
           </div>
         </div>
         <ul role="list" class="familias">
-          <li><p class="familias__mues" style="font-family:var(--f-display)">Aa</p><b>Bricolage Grotesque</b><span>Titulares · 500 · óptica variable · Google Fonts (OFL)</span></li>
+          <li><p class="familias__mues" style="font-family:var(--f-display)">Aa</p><b>Poppins</b><span>Titulares · 500 / 600 · misma familia del logotipo · Google Fonts (OFL)</span></li>
           <li><p class="familias__mues" style="font-family:var(--f-texto)">Aa</p><b>Geist</b><span>Texto e interfaz · 400 / 500 · Google Fonts (OFL)</span></li>
           <li><p class="familias__mues" style="font-family:var(--f-mono)">Aa</p><b>Geist Mono</b><span>Etiquetas, datos, código · 500 · Google Fonts (OFL)</span></li>
         </ul>
@@ -571,7 +571,7 @@ const tipos = [
     .jerarquia__fila { grid-template-columns: 7fr 5fr; align-items: center; }
     .jerarquia__fila dl { grid-template-columns: repeat(4, auto); }
   }
-  .t-h1 { font-family: var(--f-display); font-weight: 500; font-size: var(--t-hero); line-height: 1; letter-spacing: -0.035em; }
+  .t-h1 { font-family: var(--f-display); font-weight: 600; font-size: var(--t-hero); line-height: 1.08; letter-spacing: -0.025em; }
   .t-h2 { font-family: var(--f-display); font-weight: 500; font-size: var(--t-h2); line-height: 1.04; letter-spacing: -0.025em; }
   .t-h3 { font-family: var(--f-display); font-weight: 500; font-size: var(--t-h3); letter-spacing: -0.015em; }
   .t-lead { font-size: var(--t-lead); }
