@@ -108,7 +108,31 @@ const beneficios = ['Inventario y ventas al día', 'Tareas que se hacen solas', 
   .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 64px; align-items: center; width: var(--wrap); position: relative; z-index: 1; }
   .hero__texto { display: grid; gap: 26px; justify-items: start; }
   h1 { font-size: clamp(2.25rem, 1.35rem + 3.3vw, 4rem); font-weight: 600; line-height: 1.1; letter-spacing: -0.025em; max-width: 17ch; }
-  .h-coral { color: var(--c-coral); }
+  .h-coral { color: var(--c-coral); position: relative; white-space: nowrap; }
+  /* Subrayado coral "hecho a mano" bajo "a mano" */
+  .h-coral::after {
+    content: ''; position: absolute; left: -0.04em; right: -0.04em; bottom: -0.1em; height: 0.2em;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M3 10 C 38 4, 78 3, 116 6 S 176 11, 197 5' fill='none' stroke='%23E8836B' stroke-width='4.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat left center / 100% 100%;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .h-coral::after { clip-path: inset(0 100% 0 0); animation: subrayar 900ms var(--ease-out) 1.1s forwards; }
+  }
+  @keyframes subrayar { to { clip-path: inset(0 0 0 0); } }
+
+  /* Punto que brilla en la etiqueta del hero */
+  .hero__texto > .label::before {
+    width: 20px; height: 8px; border-radius: 99px;
+    background: linear-gradient(90deg, var(--c-blanco) 45%, var(--c-coral) 45%);
+    box-shadow: 0 0 10px 2px color-mix(in oklab, var(--c-coral) 70%, transparent), 0 0 22px 4px color-mix(in oklab, var(--c-coral) 30%, transparent);
+  }
+  .hero__texto > .label { color: color-mix(in oklab, var(--c-blanco) 82%, var(--c-menta)); }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__texto > .label::before { animation: brillo-punto 2.6s ease-in-out infinite; }
+  }
+  @keyframes brillo-punto {
+    50% { box-shadow: 0 0 4px 1px color-mix(in oklab, var(--c-coral) 50%, transparent), 0 0 10px 2px color-mix(in oklab, var(--c-coral) 15%, transparent); }
+  }
   .h-menta { color: var(--c-menta); }
   .hero__lead { font-size: var(--t-lead); line-height: 1.5; color: var(--c-texto-osc-suave); max-width: 40ch; }
   .hero__acciones { display: flex; flex-wrap: wrap; gap: 12px; padding-top: 4px; }
