@@ -102,7 +102,6 @@ Para desplegar, `dist/` se sube a cualquier hosting estático: Netlify, Vercel, 
 | `soluciones-manual-digital` | Soluciones |
 | `servicio-gestion`, `servicio-automatizacion`, `servicio-software`, `servicio-identidad` | Tarjetas de Servicios, cada una con un componente HTML real encima |
 | `proceso-pista` | Banda de Proceso |
-| `nosotros-mesa-compartida` | Nosotros |
 
 ## WhatsApp
 

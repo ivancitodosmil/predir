@@ -1,7 +1,6 @@
 ---
 import Icon from './Icon.astro';
 import Imagen from './Imagen.astro';
-import { problemas } from '../data/contenido';
 ---
 <section class="section sol-seccion" id="soluciones" aria-labelledby="sol-titulo">
   <!-- Banda de apertura en verde claro, con la ilustración integrada al fondo -->
@@ -70,32 +69,13 @@ import { problemas } from '../data/contenido';
     </div>
   </div>
 
-  <div class="wrap" id="problemas">
-
-    <ol role="list" class="sol">
-      <li class="sol__cab" aria-hidden="true">
-        <span></span><span>Hoy</span><span></span><span>Con un sistema</span>
-      </li>
-      {problemas.map((p, i) => (
-        <li class="sol__fila">
-          <span class="sol__ico"><Icon name={p.icono} /></span>
-          <div class="sol__hoy">
-            <h3>{p.hoy}</h3>
-            <p>{p.detalle}</p>
-          </div>
-          <span class="sol__flecha" aria-hidden="true"><Icon name="arrow" /></span>
-          <p class="sol__con"><span class="sr-only">Con un sistema: </span>{p.con}</p>
-        </li>
-      ))}
-    </ol>
-  </div>
 </section>
 
 <style>
   /* ——— Banda de apertura ——— */
-  .sol-seccion { padding-top: 0; }
+  .sol-seccion { padding-block: 0; }
   /* #DAEBE5 = el fondo exacto de la ilustración (verde claro de marca mezclado con blanco) */
-  .sol-banda { --sol-fondo: #daebe5; background: var(--sol-fondo); padding: clamp(48px, 4vw, 72px) 0 clamp(32px, 3vw, 48px); margin-bottom: clamp(28px, 3vw, 44px); overflow: hidden; }
+  .sol-banda { --sol-fondo: #daebe5; background: var(--sol-fondo); padding: clamp(48px, 4vw, 72px) 0; overflow: hidden; }
   .sol-intro { display: grid; gap: 32px; align-items: center; }
   .sol-intro__txt { display: grid; gap: 22px; justify-items: start; }
   .sol-intro__txt .label { background: color-mix(in oklab, var(--c-blanco) 55%, transparent); padding: 6px 12px; border-radius: var(--r-pill); }
@@ -145,47 +125,6 @@ import { problemas } from '../data/contenido';
     .chip--manana { bottom: 8%; }
   }
 
-  .sol { display: grid; }
-  .sol__cab { display: none; }
-  .sol__fila {
-    display: grid; gap: 16px 20px;
-    grid-template-columns: 48px 1fr;
-    padding: 28px 0;
-    border-top: 1px solid var(--c-linea);
-    position: relative;
-  }
-  .sol__fila:last-child { border-bottom: 1px solid var(--c-linea); }
-  .sol__ico {
-    width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center;
-    background: var(--c-blanco); color: var(--c-verde); border: 1px solid var(--c-linea);
-    transition: background-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
-  }
-  .sol__hoy h3 { font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem); margin-bottom: 8px; }
-  .sol__hoy p { color: var(--c-texto-suave); max-width: 46ch; }
-  .sol__flecha { display: none; color: var(--c-coral); transition: transform var(--dur-2) var(--ease-out); }
-  .sol__con {
-    grid-column: 2; font-weight: 500; color: var(--c-verde);
-    padding-left: 16px; border-left: 3px solid var(--c-menta); border-radius: 2px;
-  }
-
-  @media (min-width: 1024px) {
-    .sol__cab, .sol__fila { grid-template-columns: 64px minmax(0, 6fr) 64px minmax(0, 4fr); column-gap: var(--col-gap); }
-    .sol__cab {
-      display: grid; padding-bottom: 16px;
-      font-family: var(--f-mono); font-size: var(--t-label); color: var(--c-texto-suave);
-    }
-    .sol__fila { align-items: center; padding: 32px 0; }
-    .sol__flecha { display: block; justify-self: center; }
-    .sol__con { grid-column: auto; font-size: 1.0625rem; line-height: 1.5; }
-    .sol__fila::before {
-      content: ''; position: absolute; inset: 0 calc(var(--col-gap) * -1); z-index: -1;
-      background: var(--c-blanco); border-radius: var(--r-m);
-      opacity: 0; transition: opacity var(--dur-2) var(--ease-out);
-    }
-    .sol__fila:hover::before { opacity: 1; }
-    .sol__fila:hover .sol__ico { background: var(--c-verde); color: var(--c-blanco); border-color: transparent; }
-    .sol__fila:hover .sol__flecha { transform: translateX(6px); }
-  }
 </style>
 
 <script>

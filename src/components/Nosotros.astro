@@ -1,8 +1,6 @@
 ---
-import Simbolo from './Simbolo.astro';
-import Imagen from './Imagen.astro';
 import Icon from './Icon.astro';
-import { socios, mision } from '../data/contenido';
+import { socios } from '../data/contenido';
 import { whatsappLink, telefonoLocal } from '../config/site';
 const iniciales = (n: string) => n.split(' ').map((p) => p[0]).join('');
 ---
@@ -15,22 +13,6 @@ const iniciales = (n: string) => n.split(' ').map((p) => p[0]).join('');
         Somos Iván y Fabián. Desde Loja ayudamos a los negocios a dejar el papel y a verse tan profesionales como trabajan.
       </p>
     </header>
-
-    <div class="filo">
-      <figure class="filo__img">
-        <Imagen nombre="nosotros-mesa-compartida" sizes="(min-width: 1024px) 50vw, 100vw" />
-        <span class="filo__sello" aria-hidden="true"><Simbolo variante="color" size={44} /></span>
-      </figure>
-      <div class="filo__txt">
-        <h3>Primero entendemos tu negocio. Después construimos.</h3>
-        <p>Un sistema solo sirve si tu equipo lo entiende y lo usa. Por eso desarrollo y diseño trabajan juntos desde el primer día.</p>
-        <ul role="list" class="filo__lista">
-          <li><b>Claridad.</b> Sin tecnicismos: sabes qué hacemos y por qué.</li>
-          <li><b>A tu medida.</b> El sistema se adapta a ti, no al revés.</li>
-          <li><b>Cercanía.</b> Estamos en Loja y seguimos ahí después de entregar.</li>
-        </ul>
-      </div>
-    </div>
 
     <ul role="list" class="socios">
       {socios.map((s) => (
@@ -66,34 +48,10 @@ const iniciales = (n: string) => n.split(' ').map((p) => p[0]).join('');
         </li>
       ))}
     </ul>
-
-    <div class="mv">
-      <div class="mv__item">
-        <p class="mv__t">Misión {mision.borrador && <span class="provisional">Borrador por validar</span>}</p>
-        <p>{mision.mision}</p>
-      </div>
-      <div class="mv__item">
-        <p class="mv__t">Visión {mision.borrador && <span class="provisional">Borrador por validar</span>}</p>
-        <p>{mision.vision}</p>
-      </div>
-    </div>
   </div>
 </section>
 
 <style>
-  /* Filosofía */
-  .filo { display: grid; gap: 40px; align-items: center; margin-bottom: clamp(40px, 4vw, 64px); }
-  .filo__img { position: relative; margin: 0; border-radius: var(--r-l); overflow: hidden; aspect-ratio: 3 / 2; background: var(--c-papel-2); }
-  .filo__img :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 900ms var(--ease-out); }
-  .filo__img:hover :global(img) { transform: scale(1.025); }
-  .filo__sello { position: absolute; left: 50%; bottom: 18px; translate: -50% 0; width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; background: var(--c-blanco); box-shadow: 0 16px 32px -14px rgb(0 0 0 / 0.45); }
-  .filo__txt { display: grid; gap: 18px; max-width: 62ch; }
-  .filo__txt > p { color: var(--c-texto-suave); font-size: 1.0625rem; }
-  .filo__lista { display: grid; gap: 10px; margin-top: 6px; }
-  .filo__lista li { padding-left: 22px; position: relative; color: var(--c-texto-suave); }
-  .filo__lista li::before { content: ''; position: absolute; left: 0; top: 0.6em; width: 10px; height: 10px; border-radius: 50%; background: var(--c-coral); }
-  .filo__lista b { color: var(--c-tinta); font-weight: 500; }
-
   /* Socios */
   .socios { display: grid; gap: var(--col-gap); }
   .socio { display: grid; gap: 24px; padding: 16px 16px 28px; border-radius: var(--r-l); background: var(--c-papel); border: 1px solid var(--c-linea); }
@@ -120,20 +78,10 @@ const iniciales = (n: string) => n.split(' ').map((p) => p[0]).join('');
   .socio__enfoque { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
   .socio__enfoque li { font-size: 0.8125rem; padding: 6px 12px; border-radius: var(--r-pill); background: var(--c-blanco); border: 1px solid var(--c-linea); }
 
-  /* Misión y visión */
-  .mv { display: grid; gap: var(--col-gap); margin-top: clamp(40px, 4vw, 64px); }
-  .mv__item { display: grid; gap: 14px; padding-top: 24px; border-top: 3px solid var(--c-menta); }
-  .mv__item:last-child { border-top-color: var(--c-coral); }
-  .mv__t { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; font-family: var(--f-mono); font-size: var(--t-label); color: var(--c-texto-suave); }
-  .mv__item > p:last-child { font-family: var(--f-display); font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem); line-height: 1.3; letter-spacing: -0.015em; max-width: 34ch; }
-
   @media (min-width: 768px) {
-    .socios, .mv { grid-template-columns: 1fr 1fr; }
+    .socios { grid-template-columns: 1fr 1fr; }
   }
   @media (min-width: 1024px) {
-    .filo { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); }
-    .filo__img { grid-column: 1 / span 6; }
-    .filo__txt { grid-column: 8 / -1; }
     .socio { grid-template-columns: 5fr 6fr; align-items: center; padding: 16px; }
     .socio__txt { padding: 16px 16px 16px 8px; }
   }
