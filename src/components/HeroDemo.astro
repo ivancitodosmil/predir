@@ -186,7 +186,7 @@ const filas = [
   document.querySelectorAll<HTMLElement>('[data-demo]').forEach((demo) => {
     const botones = demo.querySelectorAll<HTMLButtonElement>('[data-ver]');
     const capas = demo.querySelectorAll<HTMLElement>('[data-capa]');
-    const INTERVALO = 7000; // "A mano" ↔ "Con sistema" cada 7 segundos
+    const INTERVALO = 9000; // "A mano" ↔ "Con sistema": cada estado dura 9 segundos
     let timer: number | undefined;
 
     const set = (estado: string) => {
