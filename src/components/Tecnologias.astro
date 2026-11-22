@@ -31,7 +31,7 @@ const anillos = [
       <p class="sec-intro">Herramientas actuales y estables, elegidas para cada proyecto.</p>
       <ul role="list" class="leyenda">
         {anillos.map((a) => (
-          <li style={`--tono:${a.tono}`}><i></i>{a.grupos.join(' · ')}</li>
+          <li style={`--tono:${a.tono}`}><i></i>{a.grupos.join(', ')}</li>
         ))}
       </ul>
       <ul class="sr-only">
